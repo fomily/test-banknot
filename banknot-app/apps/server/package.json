@@ -1,0 +1,13 @@
+{
+  "name": "@apps/server",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "echo build stub",
+    "dev": "ts-node-dev src/index.ts",
+    "lint": "echo lint stub"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "main": "src/index.ts"
+} 

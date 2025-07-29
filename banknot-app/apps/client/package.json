@@ -1,0 +1,13 @@
+{
+  "name": "@apps/client",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "echo build stub",
+    "dev": "vite",
+    "lint": "echo lint stub"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "main": "src/main.ts"
+} 
