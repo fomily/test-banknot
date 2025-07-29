@@ -1,21 +1,15 @@
 {
   "name": "banknot-app",
+  "private": true,
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "echo \"Use dev scripts from apps manually\"",
+    "build": "echo \"Use build scripts from apps manually\"",
+    "lint": "eslint apps packages --ext .ts,.tsx"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^8.38.0",
-    "@typescript-eslint/parser": "^8.38.0",
-    "eslint": "^9.32.0",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-import": "^2.32.0",
-    "prettier": "^3.6.2"
-  }
+  "devDependencies": {}
 }
