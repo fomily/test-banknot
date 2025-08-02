@@ -1,0 +1,16 @@
+---
+alwaysApply: true
+---
+
+The project uses a monorepo with npm workspaces.
+
+Applications are located in the apps folder.
+
+Shared libraries and modules are placed in the packages folder.
+
+The primary language is TypeScript.
+
+Each package uses its own tsconfig.json, ESLint, and Prettier.
+
+Every module has a src directory with an index.ts file.
+
