@@ -1,0 +1,37 @@
+---
+alwaysApply: true
+---
+
+Business logic is located in the @core package.
+
+Each module inside @core is divided into use-cases, services, and entities.
+
+The architecture follows Clean Architecture principles with dependency injection via tsyringe.
+
+UI components are placed in the @ui package.
+
+Components contain no business logic, only visual representation and event forwarding.
+
+All types, DTOs, and API clients are placed in the @api package.
+
+External API calls (e.g. to the processing center) are handled in @api.
+
+The server application is located in apps/server and built with Express.
+
+Authentication uses JWT (access and refresh tokens).Business logic is located in the @core package.
+
+Each module inside @core is divided into use-cases, services, and entities.
+
+The architecture follows Clean Architecture principles with dependency injection via tsyringe.
+
+UI components are placed in the @ui package.
+
+Components contain no business logic, only visual representation and event forwarding.
+
+All types, DTOs, and API clients are placed in the @api package.
+
+External API calls (e.g. to the processing center) are handled in @api.
+
+The server application is located in apps/server and built with Express.
+
+Authentication uses JWT (access and refresh tokens).
