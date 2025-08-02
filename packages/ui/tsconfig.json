@@ -5,5 +5,5 @@
     "rootDir": ".",
     "jsx": "react-jsx"
   },
-  "include": ["src", "preview"]
+  "include": ["src", "preview", "src/types"]
 } 
