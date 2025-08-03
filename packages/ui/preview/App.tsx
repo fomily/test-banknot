@@ -1,145 +1,56 @@
 // packages/ui/preview/App.tsx
 
 import React from 'react';
-import { Text } from '../src/components/Text';
-import { Card } from '../src/components/Card';
-import { Icon } from '../src/components/Icon';
-import { Avatar } from '../src/components/Avatar';
+import { Text, Card, Icon, Avatar } from '../src';
 
-export const App = () => {
+function App() {
   return (
-    <div style={{
-      padding: '1rem',
-      backgroundColor: '#F8F9FA',
-      minHeight: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '1rem',
-      maxWidth: '500px',
-      margin: '0 auto'
-    }}>
-      {/* Базовый Card */}
-      <Card>
-        <Text variant="HeadingM">Базовый Card</Text>
-        <Text variant="RegularM">Содержимое карточки</Text>
-      </Card>
+    <div style={{ padding: '2rem', maxWidth: '500px', margin: '0 auto' }}>
+      <h1>UI Components Test</h1>
 
-      {/* Card с кастомным цветом */}
-      <Card backgroundColor="#E3F2FD">
-        <Text variant="HeadingM">Card с кастомным цветом</Text>
-        <Text variant="RegularS">Голубой фон</Text>
-      </Card>
+      <div style={{ marginBottom: '2rem' }}>
+        <h2>Text Component</h2>
+        <Text variant="regularS">Regular Small Text</Text>
+        <Text variant="regularM">Regular Medium Text</Text>
+        <Text variant="headingS">Heading Small Text</Text>
+        <Text variant="headingM">Heading Medium Text</Text>
+        <Text variant="headingL">Heading Large Text</Text>
+      </div>
 
-      {/* Неактивный Card */}
-      <Card isActive={false}>
-        <Text variant="HeadingM">Неактивный Card</Text>
-        <Text variant="RegularS">Reduced opacity</Text>
-      </Card>
+      <div style={{ marginBottom: '2rem' }}>
+        <h2>Card Component</h2>
+        <Card style={{ marginBottom: '1rem' }}>
+          <Text variant="headingM">Active Card</Text>
+          <Text variant="regularM">This is an active card with content.</Text>
+        </Card>
+        <Card isActive={false} style={{ marginBottom: '1rem' }}>
+          <Text variant="headingM">Inactive Card</Text>
+          <Text variant="regularM">This is an inactive card with content.</Text>
+        </Card>
+        <Card backgroundColor="#f0f8ff" style={{ marginBottom: '1rem' }}>
+          <Text variant="headingM">Custom Background Card</Text>
+          <Text variant="regularM">This card has a custom background color.</Text>
+        </Card>
+      </div>
 
-      {/* Примеры Icon компонента */}
-      <Card>
-        <Text variant="HeadingM">Icon компоненты</Text>
-        <div style={{
-          display: 'flex',
-          gap: '1rem',
-          alignItems: 'center',
-          marginTop: '0.5rem'
-        }}>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-            <Icon name="credit" style={{ color: '#2196F3' }} />
-            <Text variant="RegularS">Credit</Text>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-            <Icon name="qr" style={{ color: '#4CAF50' }} />
-            <Text variant="RegularS">QR</Text>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-            <Icon name="income" style={{ color: '#FF9800' }} />
-            <Text variant="RegularS">Income</Text>
-          </div>
+      <div style={{ marginBottom: '2rem' }}>
+        <h2>Icon Component</h2>
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <Icon name="credit" />
+          <Icon name="qr" />
+          <Icon name="income" />
         </div>
-      </Card>
+      </div>
 
-      {/* Icon в контексте */}
-      <Card>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <Icon name="credit" style={{ color: '#1976D2' }} />
-          <div>
-            <Text variant="HeadingM">Кредитная карта</Text>
-            <Text variant="RegularS">Основная карта для платежей</Text>
-          </div>
+      <div style={{ marginBottom: '2rem' }}>
+        <h2>Avatar Component</h2>
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <Avatar />
+          <Avatar src="https://via.placeholder.com/48" alt="Test Avatar" />
         </div>
-      </Card>
-
-      {/* Avatar компоненты */}
-      <Card>
-        <Text variant="HeadingM">Avatar компоненты</Text>
-        <div style={{
-          display: 'flex',
-          gap: '1rem',
-          alignItems: 'center',
-          marginTop: '0.5rem',
-          flexWrap: 'wrap'
-        }}>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-            <Avatar />
-            <Text variant="RegularS">Без изображения</Text>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-            <Avatar src="https://via.placeholder.com/48x48/2196F3/FFFFFF?text=U" alt="User" />
-            <Text variant="RegularS">С изображением</Text>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-            <Avatar src="https://invalid-url.com/avatar.jpg" alt="Invalid" />
-            <Text variant="RegularS">Ошибка загрузки</Text>
-          </div>
-        </div>
-      </Card>
-
-      {/* Avatar в контексте */}
-      <Card>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <Avatar src="https://via.placeholder.com/48x48/4CAF50/FFFFFF?text=И" alt="Иван" />
-          <div>
-            <Text variant="HeadingM">Иван Петров</Text>
-            <Text variant="RegularS">+7 (999) 123-45-67</Text>
-          </div>
-        </div>
-      </Card>
-
-      {/* Список аватаров (как в избранном) */}
-      <Card>
-        <Text variant="HeadingM">Избранные контакты</Text>
-        <div style={{
-          display: 'flex',
-          gap: '1rem',
-          alignItems: 'center',
-          marginTop: '0.5rem',
-          overflowX: 'auto',
-          paddingBottom: '0.5rem'
-        }}>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', minWidth: 'fit-content' }}>
-            <Avatar src="https://via.placeholder.com/48x48/FF5722/FFFFFF?text=В" alt="Вероника" />
-            <Text variant="RegularS">Вероника</Text>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', minWidth: 'fit-content' }}>
-            <Avatar src="https://via.placeholder.com/48x48/9C27B0/FFFFFF?text=Т" alt="Татьяна" />
-            <Text variant="RegularS">Татьяна</Text>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', minWidth: 'fit-content' }}>
-            <Avatar src="https://via.placeholder.com/48x48/607D8B/FFFFFF?text=П" alt="Паша" />
-            <Text variant="RegularS">Паша</Text>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', minWidth: 'fit-content' }}>
-            <Avatar src="https://via.placeholder.com/48x48/795548/FFFFFF?text=И" alt="Ира" />
-            <Text variant="RegularS">Ира</Text>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', minWidth: 'fit-content' }}>
-            <Avatar src="https://via.placeholder.com/48x48/3F51B5/FFFFFF?text=М" alt="Мяо Ли" />
-            <Text variant="RegularS">Мяо Ли</Text>
-          </div>
-        </div>
-      </Card>
+      </div>
     </div>
   );
-};
+}
+
+export default App;

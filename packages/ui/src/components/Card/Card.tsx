@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './Card.module.css';
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -20,26 +21,23 @@ export const Card: React.FC<CardProps> = ({
   backgroundColor = '#FFFFFF',
   isActive = true,
   style,
+  className,
   children,
   ...rest
 }) => {
-  const cardStyles: React.CSSProperties = {
-    backgroundColor,
-    borderRadius: '1rem', // 16px в rem - более точное соответствие макету
-    padding: '1.25rem', // 20px в rem
-    boxShadow: '0 0.25rem 1rem rgba(0, 0, 0, 0.1)', // Более выраженная тень как в макете
-    opacity: isActive ? 1 : 0.6,
-    transition: 'opacity 0.2s ease',
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    boxSizing: 'border-box', // Добавляю чтобы padding не увеличивал ширину
-    ...style,
-  };
+  const cardClasses = [
+    styles.card,
+    !isActive && styles.cardInactive,
+    className
+  ].filter(Boolean).join(' ');
 
   return (
-    <div style={cardStyles} {...rest}>
+    <div
+      className={cardClasses}
+      style={{ backgroundColor, ...style }}
+      {...rest}
+    >
       {children}
     </div>
   );
-}; 
+};

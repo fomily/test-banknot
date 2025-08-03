@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './Icon.module.css';
 
 // Импортируем SVG как строки
 import creditSvg from '../../assets/icons/credit.svg';
@@ -48,7 +49,7 @@ export interface IconProps extends Omit<React.SVGAttributes<SVGSVGElement>, 'wid
   name: IconName;
 }
 
-export const Icon: React.FC<IconProps> = ({ name, style, ...rest }) => {
+export const Icon: React.FC<IconProps> = ({ name, className, ...rest }) => {
   const IconComponent = iconComponents[name];
 
   if (!IconComponent) {
@@ -58,14 +59,8 @@ export const Icon: React.FC<IconProps> = ({ name, style, ...rest }) => {
 
   return (
     <IconComponent
-      width={36}
-      height={36}
-      style={{
-        display: 'block',
-        flexShrink: 0,
-        ...style,
-      }}
+      className={`${styles.icon} ${className || ''}`}
       {...rest}
     />
   );
-}; 
+};
