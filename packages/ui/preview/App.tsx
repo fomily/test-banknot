@@ -8,9 +8,9 @@ import { Avatar } from '../src/components/Avatar';
 
 export const App = () => {
   return (
-    <div style={{ 
-      padding: '1rem', 
-      backgroundColor: '#F8F9FA', 
+    <div style={{
+      padding: '1rem',
+      backgroundColor: '#F8F9FA',
       minHeight: '100vh',
       display: 'flex',
       flexDirection: 'column',
@@ -39,9 +39,9 @@ export const App = () => {
       {/* Примеры Icon компонента */}
       <Card>
         <Text variant="HeadingM">Icon компоненты</Text>
-        <div style={{ 
-          display: 'flex', 
-          gap: '1rem', 
+        <div style={{
+          display: 'flex',
+          gap: '1rem',
           alignItems: 'center',
           marginTop: '0.5rem'
         }}>
@@ -74,9 +74,9 @@ export const App = () => {
       {/* Avatar компоненты */}
       <Card>
         <Text variant="HeadingM">Avatar компоненты</Text>
-        <div style={{ 
-          display: 'flex', 
-          gap: '1rem', 
+        <div style={{
+          display: 'flex',
+          gap: '1rem',
           alignItems: 'center',
           marginTop: '0.5rem',
           flexWrap: 'wrap'
@@ -110,9 +110,9 @@ export const App = () => {
       {/* Список аватаров (как в избранном) */}
       <Card>
         <Text variant="HeadingM">Избранные контакты</Text>
-        <div style={{ 
-          display: 'flex', 
-          gap: '1rem', 
+        <div style={{
+          display: 'flex',
+          gap: '1rem',
           alignItems: 'center',
           marginTop: '0.5rem',
           overflowX: 'auto',
