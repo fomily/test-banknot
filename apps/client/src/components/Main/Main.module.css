@@ -137,7 +137,7 @@
   transform: scale(0.98);
 }
 
-/* Menu Spacer */
+/* Menu Spacer - увеличиваем высоту для отступа от нового меню */
 .menuSpacer {
-  height: 4rem;
+  height: 6rem;
 }

@@ -54,7 +54,7 @@ export const Main: React.FC = () => {
       onClick: () => console.log('Продукты')
     },
     {
-      icon: 'chart',
+      icon: 'trending-up',
       children: 'рейтинг',
       onClick: () => console.log('Рейтинг')
     },

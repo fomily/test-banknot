@@ -1,6 +1,7 @@
 import React from 'react';
 import { IconButton, IconButtonProps } from '../IconButton';
 import { Avatar } from '../Avatar';
+import { Text } from '../Text';
 import styles from './Menu.module.css';
 
 export interface MenuItemProps extends Omit<IconButtonProps, 'direction'> {
@@ -61,6 +62,7 @@ export const Menu: React.FC<MenuProps> = ({
       {items.map((item, index) => {
         // Последний элемент - профиль с аватаром
         if (index === items.length - 1) {
+          const textColor = item.isActive ? '#FFFFFF' : '#A3A3A3';
           return (
             <button
               key={index}
@@ -72,9 +74,13 @@ export const Menu: React.FC<MenuProps> = ({
                 alt={avatarAlt}
                 className={styles.avatar}
               />
-              <span className={styles.profileText}>
+              <Text
+                variant="regularS"
+                as="span"
+                style={{ color: textColor, fontSize: 'var(--font-size-xs)', textAlign: 'center' }}
+              >
                 {item.children}
-              </span>
+              </Text>
             </button>
           );
         }

@@ -7,7 +7,7 @@ import qrSvg from '../../assets/icons/qr.svg';
 import incomeSvg from '../../assets/icons/income.svg';
 
 // Типы доступных иконок
-export type IconName = 'credit' | 'qr' | 'income' | 'link' | 'card' | 'gift' | 'home' | 'chart' | 'profile';
+export type IconName = 'credit' | 'qr' | 'income' | 'link' | 'card' | 'gift' | 'home' | 'chart' | 'profile' | 'star' | 'trending-up';
 
 // Компоненты иконок
 const CreditIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
@@ -91,6 +91,19 @@ const ProfileIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   </svg>
 );
 
+const StarIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M18 4L22 14H32L24 20L28 30L18 24L8 30L12 20L4 14H14L18 4Z" stroke="currentColor" strokeWidth="2" fill="none"/>
+  </svg>
+);
+
+const TrendingUpIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M6 24L14 16L20 22L30 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M22 6H30V14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
 // Объект для маппинга имен иконок на компоненты
 const iconComponents: Record<IconName, React.ComponentType<React.SVGProps<SVGSVGElement>>> = {
   credit: CreditIcon,
@@ -102,6 +115,8 @@ const iconComponents: Record<IconName, React.ComponentType<React.SVGProps<SVGSVG
   home: HomeIcon,
   chart: ChartIcon,
   profile: ProfileIcon,
+  star: StarIcon,
+  'trending-up': TrendingUpIcon,
 };
 
 export interface IconProps extends Omit<React.SVGAttributes<SVGSVGElement>, 'width' | 'height'> {
