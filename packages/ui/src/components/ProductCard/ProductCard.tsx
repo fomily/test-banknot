@@ -33,23 +33,16 @@ export interface ProductCardProps extends Omit<CardProps, 'children'> {
    */
   iconColor?: string;
   /**
+   * Цвет фона иконки
+   * @default '#F3F4F6'
+   */
+  iconBackgroundColor?: string;
+  /**
    * Обработчик клика по карточке
    */
   onClick?: () => void;
 }
 
-// Функция для получения светлого фона на основе цвета иконки
-const getIconBackgroundColor = (iconColor: string): string => {
-  const colorMap: Record<string, string> = {
-    '#10B981': '#DCFCE7', // зеленый -> светло-зеленый
-    '#6366F1': '#E0E7FF', // синий -> светло-синий
-    '#F59E0B': '#FEF3C7', // оранжевый -> светло-оранжевый
-    '#EF4444': '#FEE2E2', // красный -> светло-красный
-    '#8B5CF6': '#F3E8FF', // фиолетовый -> светло-фиолетовый
-  };
-
-  return colorMap[iconColor] || '#F3F4F6'; // серый по умолчанию
-};
 
 export const ProductCard: React.FC<ProductCardProps> = ({
   title,
@@ -58,6 +51,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   titleVariant = 'regularM',
   subtitleVariant = 'headingS',
   iconColor = 'currentColor',
+  iconBackgroundColor = '#F3F4F6',
   onClick,
   className,
   ...cardProps
@@ -77,7 +71,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             {icon && (
         <div
           className={styles.iconContainer}
-          style={{ backgroundColor: getIconBackgroundColor(iconColor) }}
+          style={{ backgroundColor: iconBackgroundColor }}
         >
           <Icon
             name={icon}

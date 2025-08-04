@@ -1,7 +1,7 @@
 // packages/ui/preview/App.tsx
 
 import React from 'react';
-import { Text, Card, Icon, Avatar, ProductCard } from '../src';
+import { Text, Card, Icon, Avatar, ProductCard, Badge, IconButton, Menu } from '../src';
 
 function App() {
   return (
@@ -15,6 +15,20 @@ function App() {
         <Text variant="headingS">Heading Small Text</Text>
         <Text variant="headingM">Heading Medium Text</Text>
         <Text variant="headingL">Heading Large Text</Text>
+      </div>
+
+      <div style={{ marginBottom: '2rem' }}>
+        <h2>Text Colors</h2>
+        <div style={{ display: 'grid', gap: '0.5rem' }}>
+          <Text variant="regularM" color="primary">Primary color text (тёмно-серый)</Text>
+          <Text variant="regularM" color="secondary">Secondary color text (#747B7A)</Text>
+          <Text variant="regularM" color="muted">Muted color text (светло-серый)</Text>
+          <Text variant="regularM" color="success">Success color text (зелёный)</Text>
+          <Text variant="regularM" color="error">Error color text (красный)</Text>
+          <Text variant="regularM" color="warning">Warning color text (жёлтый)</Text>
+          <Text variant="regularM" color="info">Info color text (синий)</Text>
+          <Text variant="regularM">Default color text (без цвета)</Text>
+        </div>
       </div>
 
       <div style={{ marginBottom: '2rem' }}>
@@ -39,6 +53,33 @@ function App() {
           <Icon name="credit" />
           <Icon name="qr" />
           <Icon name="income" />
+          <Icon name="link" />
+          <Icon name="card" />
+          <Icon name="gift" />
+          <Icon name="home" />
+          <Icon name="chart" />
+          <Icon name="profile" />
+        </div>
+      </div>
+
+      <div style={{ marginBottom: '2rem' }}>
+        <h2>Badge Component</h2>
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <Badge>хороший</Badge>
+          <Badge backgroundColor="#6366F1">отличный</Badge>
+          <Badge backgroundColor="#EF4444">плохой</Badge>
+        </div>
+      </div>
+
+      <div style={{ marginBottom: '2rem' }}>
+        <h2>IconButton Component</h2>
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <IconButton icon="qr" iconColor="#FFFFFF" textColor="#FFFFFF" style={{background: '#2D3748', padding: '1rem', borderRadius: '0.5rem'}}>
+            сканировать
+          </IconButton>
+          <IconButton icon="credit" iconColor="#10B981" textColor="#374151">
+            на карту
+          </IconButton>
         </div>
       </div>
 

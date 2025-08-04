@@ -2,7 +2,14 @@
   "extends": "../../packages/config/tsconfig.base.json",
   "compilerOptions": {
     "outDir": "dist",
-    "rootDir": "src"
+    "baseUrl": "../../",
+    "jsx": "react-jsx",
+    "paths": {
+      "@core/*": ["packages/core/src/*"],
+      "@packages/ui/*": ["packages/ui/src/*"],
+      "@packages/ui": ["packages/ui/src"],
+      "@api/*": ["packages/api/src/*"]
+    }
   },
   "include": ["src"]
-} 
+}

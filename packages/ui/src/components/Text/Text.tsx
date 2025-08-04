@@ -8,14 +8,25 @@ export type TextVariant =
   | 'headingM'
   | 'headingL';
 
+export type TextColor =
+  | 'primary'
+  | 'secondary'
+  | 'muted'
+  | 'success'
+  | 'error'
+  | 'warning'
+  | 'info';
+
 export interface TextProps extends React.HTMLAttributes<HTMLSpanElement> {
   variant?: TextVariant;
+  color?: TextColor;
   as?: 'span' | 'p' | 'div';
   children: React.ReactNode;
 }
 
 export const Text: React.FC<TextProps> = ({
   variant = 'regularM',
+  color,
   as = 'div',
   className,
   children,
@@ -23,10 +34,11 @@ export const Text: React.FC<TextProps> = ({
 }) => {
   const Component = as;
   const variantClass = styles[variant];
+  const colorClass = color ? styles[`color${color.charAt(0).toUpperCase() + color.slice(1)}`] : '';
 
   return (
     <Component
-      className={`${styles.text} ${variantClass} ${className || ''}`}
+      className={`${styles.text} ${variantClass} ${colorClass} ${className || ''}`}
       {...rest}
     >
       {children}

@@ -18,7 +18,6 @@
   font-weight: var(--font-weight-regular);
   font-size: var(--font-size-base);
   line-height: var(--line-height-relaxed);
-  color: #8B8B8B; /* Серый */
 }
 
 .headingM {
@@ -31,4 +30,33 @@
   font-weight: var(--font-weight-semibold);
   font-size: var(--font-size-4xl);
   line-height: var(--line-height-tight);
+}
+
+/* Color classes */
+.colorPrimary {
+  color: #1F2937; /* Тёмно-серый, основной цвет текста */
+}
+
+.colorSecondary {
+  color: #747B7A; /* Серый, вторичный цвет текста */
+}
+
+.colorMuted {
+  color: #8B8B8B; /* Светло-серый, приглушённый текст */
+}
+
+.colorSuccess {
+  color: #10B981; /* Зелёный, успех */
+}
+
+.colorError {
+  color: #EF4444; /* Красный, ошибка */
+}
+
+.colorWarning {
+  color: #F59E0B; /* Жёлтый, предупреждение */
+}
+
+.colorInfo {
+  color: #3B82F6; /* Синий, информация */
 }

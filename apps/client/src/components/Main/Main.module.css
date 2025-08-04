@@ -1,0 +1,143 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  background: #212121;
+}
+
+/* Header Styles */
+.header {
+  background: #212121;
+  padding: 3rem 1rem 1rem;
+  color: white;
+}
+
+.ratingSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+
+
+.balanceSection {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+
+
+.actionButtons {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* Content Styles */
+.content {
+  flex: 1;
+  padding: 1.5rem 1rem 0;
+  overflow-y: auto;
+  border-radius: 2rem 2rem 0 0;
+  background: #F5F5F5;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.sectionTitle {
+  margin-bottom: 1rem;
+}
+
+/* Transfer Grid Styles */
+.transferGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.transferCard {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.transferCard:active {
+  transform: scale(0.98);
+}
+
+.transferCardContent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.transferIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  background-color: rgba(74, 85, 104, 0.1);
+  border-radius: 50%;
+}
+
+
+
+/* Favorites Styles */
+.favoritesContainer {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.favoritesContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.favoriteItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 4rem;
+  cursor: pointer;
+}
+
+.favoriteAvatar {
+  transition: transform 0.2s ease;
+}
+
+.favoriteItem:active .favoriteAvatar {
+  transform: scale(0.95);
+}
+
+
+
+/* Products Styles */
+.productsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.productCard {
+  transition: transform 0.2s ease;
+}
+
+.productCard:active {
+  transform: scale(0.98);
+}
+
+/* Menu Spacer */
+.menuSpacer {
+  height: 4rem;
+}
