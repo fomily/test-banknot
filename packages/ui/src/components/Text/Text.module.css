@@ -1,34 +1,34 @@
 .text {
-  font-family: 'Commissioner, sans-serif';
+  font-family: var(--font-family-primary);
 }
 
 .regularS {
-  font-weight: 400;
-  font-size: 0.75rem; /* 12px */
-  line-height: 1.2;
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-normal);
 }
 
 .regularM {
-  font-weight: 400;
-  font-size: 1rem; /* 16px */
-  line-height: 1.4;
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
 }
 
 .headingS {
-  font-weight: 400;
-  font-size: 1rem; /* 16px */
-  line-height: 1.4;
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
   color: #8B8B8B; /* Серый */
 }
 
 .headingM {
-  font-weight: 500;
-  font-size: 1.125rem; /* 18px */
-  line-height: 1.3;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
 }
 
 .headingL {
-  font-weight: 600;
-  font-size: 2.25rem; /* 36px */
-  line-height: 1.1;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-4xl);
+  line-height: var(--line-height-tight);
 }

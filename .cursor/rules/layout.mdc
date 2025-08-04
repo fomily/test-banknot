@@ -23,3 +23,5 @@ Avoid using position: absolute unless absolutely necessary. Use flex or grid lay
 Do not use :hover or :focus-visible — they are unsupported or unnecessary in WebView/mobile environments.
 
 Avoid heavy UI libraries. Use only custom components or Tailwind CSS (if available in the project).
+
+Use css modules

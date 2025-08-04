@@ -20,7 +20,6 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 export const Card: React.FC<CardProps> = ({
   backgroundColor = '#FFFFFF',
   isActive = true,
-  style,
   className,
   children,
   ...rest
@@ -34,7 +33,7 @@ export const Card: React.FC<CardProps> = ({
   return (
     <div
       className={cardClasses}
-      style={{ backgroundColor, ...style }}
+      style={{ backgroundColor }}
       {...rest}
     >
       {children}
