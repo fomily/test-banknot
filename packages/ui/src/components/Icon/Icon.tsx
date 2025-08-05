@@ -7,7 +7,7 @@ import qrSvg from '../../assets/icons/qr.svg';
 import incomeSvg from '../../assets/icons/income.svg';
 
 // Типы доступных иконок
-export type IconName = 'credit' | 'qr' | 'income' | 'link' | 'card' | 'gift' | 'home' | 'chart' | 'profile' | 'star' | 'trending-up';
+export type IconName = 'credit' | 'qr' | 'income' | 'link' | 'card' | 'gift' | 'home' | 'chart' | 'profile' | 'star' | 'trending-up' | 'lock' | 'percent' | 'plus';
 
 // Компоненты иконок
 const CreditIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
@@ -104,6 +104,29 @@ const TrendingUpIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   </svg>
 );
 
+const LockIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <rect x="8" y="16" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="2"/>
+    <path d="M13 16V12C13 9.24 15.24 7 18 7C20.76 7 23 9.24 23 12V16" stroke="currentColor" strokeWidth="2"/>
+    <circle cx="18" cy="23" r="2" fill="currentColor"/>
+  </svg>
+);
+
+const PercentIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M8 8L28 28" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+    <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2" fill="none"/>
+    <circle cx="24" cy="24" r="3" stroke="currentColor" strokeWidth="2" fill="none"/>
+  </svg>
+);
+
+const PlusIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M18 8V28" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+    <path d="M8 18H28" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+  </svg>
+);
+
 // Объект для маппинга имен иконок на компоненты
 const iconComponents: Record<IconName, React.ComponentType<React.SVGProps<SVGSVGElement>>> = {
   credit: CreditIcon,
@@ -117,6 +140,9 @@ const iconComponents: Record<IconName, React.ComponentType<React.SVGProps<SVGSVG
   profile: ProfileIcon,
   star: StarIcon,
   'trending-up': TrendingUpIcon,
+  lock: LockIcon,
+  percent: PercentIcon,
+  plus: PlusIcon,
 };
 
 export interface IconProps extends Omit<React.SVGAttributes<SVGSVGElement>, 'width' | 'height'> {

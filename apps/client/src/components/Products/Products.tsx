@@ -13,8 +13,8 @@ interface ProductsProps {
 }
 
 export const Products: React.FC<ProductsProps> = ({ onNavigate }) => {
-  // Данные для нижнего меню
-  const menuItems: MenuItemProps[] = [
+  // Данные для нижнего меню - мемоизируем, но зависят от onNavigate
+  const menuItems: MenuItemProps[] = React.useMemo(() => [
     {
       icon: 'home',
       children: 'главная',
@@ -36,7 +36,7 @@ export const Products: React.FC<ProductsProps> = ({ onNavigate }) => {
       children: 'профиль',
       onClick: () => onNavigate('profile')
     }
-  ];
+  ], [onNavigate]);
 
   return (
     <div className={styles.products}>
@@ -72,7 +72,7 @@ export const Products: React.FC<ProductsProps> = ({ onNavigate }) => {
               onClick={() => console.log('Подключить овердрафт')}
               className={styles.productCard}
             />
-            
+
             <ProductCard
               title="Потребительский кредит"
               subtitle="До 5 млн рублей на любые цели"
@@ -85,11 +85,11 @@ export const Products: React.FC<ProductsProps> = ({ onNavigate }) => {
               onClick={() => console.log('Потребительский кредит')}
               className={styles.productCard}
             />
-            
+
             <ProductCard
               title="Ипотека"
               subtitle="Чтобы открыть ипотеку необходимо повысить рейтинг кошелька"
-              icon="home"
+              icon="lock"
               iconColor="#8E9094"
               iconBackgroundColor="#EFF1F3"
               titleVariant="regularM"
@@ -110,7 +110,7 @@ export const Products: React.FC<ProductsProps> = ({ onNavigate }) => {
             <ProductCard
               title="Открыть вклад"
               subtitle="От 18% годовых"
-              icon="income"
+              icon="plus"
               iconColor="#FFFFFF"
               iconBackgroundColor="#CBFC05"
               titleVariant="regularM"
@@ -119,11 +119,11 @@ export const Products: React.FC<ProductsProps> = ({ onNavigate }) => {
               onClick={() => console.log('Открыть вклад')}
               className={styles.productCard}
             />
-            
+
             <ProductCard
               title="Накопительный счёт"
               subtitle="До 14% годовых с возможностью снятия"
-              icon="star"
+              icon="percent"
               iconColor="#FFFFFF"
               iconBackgroundColor="#CBFC05"
               titleVariant="regularM"

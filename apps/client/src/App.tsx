@@ -8,9 +8,9 @@ type Screen = 'main' | 'products' | 'rating' | 'profile';
 function App() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('main');
 
-  const handleNavigate = (screen: string) => {
+  const handleNavigate = React.useCallback((screen: string) => {
     setCurrentScreen(screen as Screen);
-  };
+  }, []);
 
   const renderScreen = () => {
     switch (currentScreen) {

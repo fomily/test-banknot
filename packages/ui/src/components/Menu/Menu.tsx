@@ -35,7 +35,7 @@ export interface MenuProps extends React.HTMLAttributes<HTMLDivElement> {
   avatarAlt?: string;
 }
 
-const MenuItem: React.FC<MenuItemProps> = ({
+const MenuItem: React.FC<MenuItemProps> = React.memo(({
   icon,
   children,
   isActive = false,
@@ -64,9 +64,39 @@ const MenuItem: React.FC<MenuItemProps> = ({
       </Text>
     </button>
   );
-};
+});
 
-export const Menu: React.FC<MenuProps> = ({
+// Мемоизированный компонент ProfileButton для стабильности аватарки
+const ProfileButton: React.FC<{
+  item: MenuItemProps;
+  avatarSrc?: string;
+  avatarAlt?: string;
+}> = React.memo(({ item, avatarSrc, avatarAlt }) => {
+  const textColor = item.isActive ? 'white' : 'inactive';
+  const { icon, ...itemProps } = item;
+
+  return (
+    <button
+      {...itemProps}
+      className={`${styles.menuItem} ${item.isActive ? styles.active : ''} ${itemProps.className || ''}`}
+    >
+      <Avatar
+        src={avatarSrc}
+        alt={avatarAlt}
+        className={styles.avatar}
+      />
+      <Text
+        variant="regularS"
+        color={textColor}
+        as="span"
+      >
+        {item.children}
+      </Text>
+    </button>
+  );
+});
+
+export const Menu: React.FC<MenuProps> = React.memo(({
   items,
   avatarSrc,
   avatarAlt,
@@ -79,34 +109,23 @@ export const Menu: React.FC<MenuProps> = ({
       {...rest}
     >
       {items.map((item, index) => {
+        // Создаем стабильный ключ на основе icon или children
+        const stableKey = `${item.icon}-${typeof item.children === 'string' ? item.children : index}`;
+
         // Последний элемент - профиль с аватаром
         if (index === items.length - 1) {
-          const textColor = item.isActive ? 'white' : 'inactive';
-          const { icon, ...itemProps } = item;
           return (
-            <button
-              key={index}
-              {...itemProps}
-              className={`${styles.menuItem} ${item.isActive ? styles.active : ''} ${itemProps.className || ''}`}
-            >
-              <Avatar
-                src={avatarSrc}
-                alt={avatarAlt}
-                className={styles.avatar}
-              />
-              <Text
-                variant="regularS"
-                color={textColor}
-                as="span"
-              >
-                {item.children}
-              </Text>
-            </button>
+            <ProfileButton
+              key="profile-button"
+              item={item}
+              avatarSrc={avatarSrc}
+              avatarAlt={avatarAlt}
+            />
           );
         }
 
-        return <MenuItem key={index} {...item} />;
+        return <MenuItem key={stableKey} {...item} />;
       })}
     </div>
   );
-};
+});

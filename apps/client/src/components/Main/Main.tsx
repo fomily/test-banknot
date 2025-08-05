@@ -10,19 +10,23 @@ import {
 } from '@packages/ui';
 import styles from './Main.module.css';
 
-export const Main: React.FC = () => {
-  // Данные для секции "Избранное"
-  const favoriteContacts = [
+interface MainProps {
+  onNavigate: (screen: string) => void;
+}
+
+export const Main: React.FC<MainProps> = ({ onNavigate }) => {
+  // Данные для секции "Избранное" - мемоизируем чтобы не пересоздавать
+  const favoriteContacts = React.useMemo(() => [
     { name: 'Вероника', avatar: 'https://i.pravatar.cc/48?img=1' },
     { name: 'Татьяна', avatar: 'https://i.pravatar.cc/48?img=2' },
     { name: 'Паша', avatar: 'https://i.pravatar.cc/48?img=3' },
     { name: 'Ира', avatar: 'https://i.pravatar.cc/48?img=4' },
     { name: 'Мяо Ли', avatar: 'https://i.pravatar.cc/48?img=5' },
     { name: 'Борис', avatar: 'https://i.pravatar.cc/48?img=6' },
-  ];
+  ], []);
 
-  // Данные для секции "Мои продукты"
-  const products = [
+  // Данные для секции "Мои продукты" - мемоизируем
+  const products = React.useMemo(() => [
     {
       title: '30 500, 16 Р',
       subtitle: 'Накопительный счёт',
@@ -38,32 +42,32 @@ export const Main: React.FC = () => {
       subtitle: 'Накопительный счёт',
       icon: 'income' as const
     }
-  ];
+  ], []);
 
-  // Данные для нижнего меню
-  const menuItems: MenuItemProps[] = [
+  // Данные для нижнего меню - мемоизируем, но зависят от onNavigate
+  const menuItems: MenuItemProps[] = React.useMemo(() => [
     {
       icon: 'home',
       children: 'главная',
       isActive: true,
-      onClick: () => console.log('Главная')
+      onClick: () => onNavigate('main')
     },
     {
       icon: 'chart',
       children: 'продукты',
-      onClick: () => console.log('Продукты')
+      onClick: () => onNavigate('products')
     },
     {
       icon: 'trending-up',
       children: 'рейтинг',
-      onClick: () => console.log('Рейтинг')
+      onClick: () => onNavigate('rating')
     },
     {
       icon: 'profile',
       children: 'профиль',
-      onClick: () => console.log('Профиль')
+      onClick: () => onNavigate('profile')
     }
-  ];
+  ], [onNavigate]);
 
   return (
     <div className={styles.main}>
