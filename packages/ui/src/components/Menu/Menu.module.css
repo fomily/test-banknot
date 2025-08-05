@@ -33,7 +33,7 @@
 }
 
 .menuItem.active {
-  background-color: #3C3C3C;
+  background-color: var(--color-grey-dark);
   border-radius: 1rem;
 }
 

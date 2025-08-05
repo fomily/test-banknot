@@ -43,13 +43,16 @@ export const Products: React.FC<ProductsProps> = ({ onNavigate }) => {
       {/* Header Section */}
       <div className={styles.header}>
         <div className={styles.ratingSection}>
-          <Text variant="regularS" color="muted">
+          <Text variant="regularS" color="white">
             рейтинг:
           </Text>
-          <Badge backgroundColor="#CBFC05" textColor="#000000">
+          <Badge backgroundColor="var(--color-green-primary)" textColor="var(--color-black)">
             хороший
           </Badge>
         </div>
+
+        {/* Невидимый placeholder для компонента Rating чтобы высота header была как на странице рейтинга */}
+        <div className={styles.ratingPlaceholder} />
       </div>
 
       {/* Content Section */}
@@ -64,8 +67,8 @@ export const Products: React.FC<ProductsProps> = ({ onNavigate }) => {
               title="Подключить овердрафт"
               subtitle="Для непредвиденных трат"
               icon="credit"
-              iconColor="#FFFFFF"
-              iconBackgroundColor="#CBFC05"
+              iconColor="var(--color-green-dark)"
+              iconBackgroundColor="var(--color-green-light)"
               titleVariant="regularM"
               subtitleVariant="regularS"
               subtitleColor="secondary"
@@ -77,8 +80,8 @@ export const Products: React.FC<ProductsProps> = ({ onNavigate }) => {
               title="Потребительский кредит"
               subtitle="До 5 млн рублей на любые цели"
               icon="credit"
-              iconColor="#FFFFFF"
-              iconBackgroundColor="#CBFC05"
+              iconColor="var(--color-green-dark)"
+              iconBackgroundColor="var(--color-green-light)"
               titleVariant="regularM"
               subtitleVariant="regularS"
               subtitleColor="secondary"
@@ -90,8 +93,8 @@ export const Products: React.FC<ProductsProps> = ({ onNavigate }) => {
               title="Ипотека"
               subtitle="Чтобы открыть ипотеку необходимо повысить рейтинг кошелька"
               icon="lock"
-              iconColor="#8E9094"
-              iconBackgroundColor="#EFF1F3"
+              iconColor="var(--color-grey)"
+              iconBackgroundColor="var(--color-grey-light)"
               titleVariant="regularM"
               subtitleVariant="regularS"
               subtitleColor="secondary"
@@ -111,8 +114,8 @@ export const Products: React.FC<ProductsProps> = ({ onNavigate }) => {
               title="Открыть вклад"
               subtitle="От 18% годовых"
               icon="plus"
-              iconColor="#FFFFFF"
-              iconBackgroundColor="#CBFC05"
+              iconColor="var(--color-green-dark)"
+              iconBackgroundColor="var(--color-green-light)"
               titleVariant="regularM"
               subtitleVariant="regularS"
               subtitleColor="secondary"
@@ -124,8 +127,8 @@ export const Products: React.FC<ProductsProps> = ({ onNavigate }) => {
               title="Накопительный счёт"
               subtitle="До 14% годовых с возможностью снятия"
               icon="percent"
-              iconColor="#FFFFFF"
-              iconBackgroundColor="#CBFC05"
+              iconColor="var(--color-green-dark)"
+              iconBackgroundColor="var(--color-green-light)"
               titleVariant="regularM"
               subtitleVariant="regularS"
               subtitleColor="secondary"

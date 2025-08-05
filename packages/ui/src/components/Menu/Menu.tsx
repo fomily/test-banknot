@@ -42,8 +42,8 @@ const MenuItem: React.FC<MenuItemProps> = React.memo(({
   className,
   ...props
 }) => {
-  const textColor = isActive ? 'white' : 'inactive';
-  const iconColor = isActive ? '#FFFFFF' : '#A3A3A3';
+  const textColor = isActive ? 'white' : 'grey';
+  const iconColor = isActive ? '#FFFFFF' : '#8E9094';
 
   return (
     <button
@@ -72,7 +72,7 @@ const ProfileButton: React.FC<{
   avatarSrc?: string;
   avatarAlt?: string;
 }> = React.memo(({ item, avatarSrc, avatarAlt }) => {
-  const textColor = item.isActive ? 'white' : 'inactive';
+  const textColor = item.isActive ? 'white' : 'grey';
   const { icon, ...itemProps } = item;
 
   return (

@@ -1,12 +1,11 @@
 import React from 'react';
-import { Card, CardProps } from '../Card';
 import { Text, TextVariant, TextColor } from '../Text';
 import { Icon, IconName } from '../Icon';
-import styles from './ProductCard.module.css';
+import styles from './ListItem.module.css';
 
-export interface ProductCardProps extends Omit<CardProps, 'children'> {
+export interface ListItemProps {
   /**
-   * Основной заголовок карточки
+   * Основной текст элемента списка
    */
   title: string;
   /**
@@ -14,9 +13,9 @@ export interface ProductCardProps extends Omit<CardProps, 'children'> {
    */
   subtitle?: string;
   /**
-   * Иконка слева от текста (опционально)
+   * Иконка слева от текста
    */
-  icon?: IconName;
+  icon: IconName;
   /**
    * Вариант стиля для заголовка
    * @default 'regularM'
@@ -24,15 +23,17 @@ export interface ProductCardProps extends Omit<CardProps, 'children'> {
   titleVariant?: TextVariant;
   /**
    * Вариант стиля для подзаголовка
-   * @default 'headingS'
+   * @default 'regularS'
    */
   subtitleVariant?: TextVariant;
   /**
    * Цвет заголовка
+   * @default 'primary'
    */
   titleColor?: TextColor;
   /**
    * Цвет подзаголовка
+   * @default 'muted'
    */
   subtitleColor?: TextColor;
   /**
@@ -42,54 +43,55 @@ export interface ProductCardProps extends Omit<CardProps, 'children'> {
   iconColor?: string;
   /**
    * Цвет фона иконки
-   * @default '#F3F4F6'
+   * @default '#e5f6e3'
    */
   iconBackgroundColor?: string;
   /**
-   * Обработчик клика по карточке
+   * Обработчик клика по элементу
    */
   onClick?: () => void;
+  /**
+   * Дополнительные CSS классы
+   */
+  className?: string;
 }
 
-
-export const ProductCard: React.FC<ProductCardProps> = ({
+export const ListItem: React.FC<ListItemProps> = ({
   title,
   subtitle,
   icon,
   titleVariant = 'regularM',
-  subtitleVariant = 'headingS',
-  titleColor,
-  subtitleColor,
+  subtitleVariant = 'regularS',
+  titleColor = 'primary',
+  subtitleColor = 'muted',
   iconColor = 'currentColor',
-  iconBackgroundColor = 'var(--color-grey-light)',
+  iconBackgroundColor = 'var(--color-green-light)',
   onClick,
-  className,
-  ...cardProps
+  className
 }) => {
-  const contentClasses = [
-    styles.content,
-    icon ? styles.contentWithIcon : styles.contentWithoutIcon,
+  const itemClasses = [
+    styles.listItem,
+    onClick ? styles.clickable : '',
     className
   ].filter(Boolean).join(' ');
 
   return (
-    <Card
-      className={contentClasses}
+    <div
+      className={itemClasses}
       onClick={onClick}
-      {...cardProps}
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick ? 0 : undefined}
     >
-            {icon && (
-        <div
-          className={styles.iconContainer}
-          style={{ backgroundColor: iconBackgroundColor }}
-        >
-          <Icon
-            name={icon}
-            style={{ color: iconColor }}
-            className={styles.icon}
-          />
-        </div>
-      )}
+      <div
+        className={styles.iconContainer}
+        style={{ backgroundColor: iconBackgroundColor }}
+      >
+        <Icon
+          name={icon}
+          style={{ color: iconColor }}
+          className={styles.icon}
+        />
+      </div>
 
       <div className={styles.textContainer}>
         <Text
@@ -110,6 +112,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </Text>
         )}
       </div>
-    </Card>
+    </div>
   );
 };

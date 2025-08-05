@@ -12,13 +12,12 @@ export type TextVariant =
 export type TextColor =
   | 'primary'
   | 'secondary'
-  | 'muted'
+  | 'grey'
   | 'success'
   | 'error'
   | 'warning'
   | 'info'
-  | 'white'
-  | 'inactive';
+  | 'white';
 
 export interface TextProps extends React.HTMLAttributes<HTMLSpanElement> {
   variant?: TextVariant;

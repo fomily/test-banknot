@@ -25,6 +25,12 @@ export type { IconButtonProps } from './components/IconButton';
 export { Menu } from './components/Menu';
 export type { MenuProps, MenuItemProps } from './components/Menu';
 
+export { Rating } from './components/Rating';
+export type { RatingProps } from './components/Rating';
+
+export { ListItem } from './components/ListItem';
+export type { ListItemProps } from './components/ListItem';
+
 // Font utilities
 export {
   fontFamily,

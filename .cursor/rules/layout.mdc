@@ -17,3 +17,5 @@ Avoid heavy UI libraries. Use only custom components or Tailwind CSS (if availab
 Always use css modules, not inline styles
 
 Never create new text style, use existing Text components only. If you need a new one, create new style in the existing Text component
+
+Use existing global colors only. You can ask me if you can create a new one (if needed)

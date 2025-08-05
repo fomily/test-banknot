@@ -22,7 +22,7 @@ function App() {
         <div style={{ display: 'grid', gap: '0.5rem' }}>
           <Text variant="regularM" color="primary">Primary color text (тёмно-серый)</Text>
           <Text variant="regularM" color="secondary">Secondary color text (#747B7A)</Text>
-          <Text variant="regularM" color="muted">Muted color text (светло-серый)</Text>
+          <Text variant="regularM" color="white">Muted color text (white)</Text>
           <Text variant="regularM" color="success">Success color text (зелёный)</Text>
           <Text variant="regularM" color="error">Error color text (красный)</Text>
           <Text variant="regularM" color="warning">Warning color text (жёлтый)</Text>

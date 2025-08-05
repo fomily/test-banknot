@@ -74,44 +74,47 @@ export const Main: React.FC<MainProps> = ({ onNavigate }) => {
       {/* Header Section */}
       <div className={styles.header}>
         <div className={styles.ratingSection}>
-          <Text variant="regularS" color="muted">
+          <Text variant="regularS" color="white">
             рейтинг:
           </Text>
-          <Badge backgroundColor="#CBFC05" textColor="#000000">
+          <Badge backgroundColor="var(--color-green-primary)" textColor="var(--color-black)">
             хороший
           </Badge>
         </div>
 
+        {/* Невидимый placeholder для компонента Rating чтобы высота header была как на странице рейтинга */}
+        <div className={styles.ratingPlaceholder} />
+
         <div className={styles.balanceSection}>
           <Text variant="headingL" color="white">
-            60 000, <Text variant="headingL" as="span" color="muted">34 Р</Text>
+            60 000, <Text variant="headingL" as="span" color="white">34 Р</Text>
           </Text>
         </div>
 
         <div className={styles.actionButtons}>
           <IconButton
             icon="qr"
-            iconColor="#FFFFFF"
-            iconBackgroundColor="#3C3C3C"
-            textColor="#FFFFFF"
+            iconColor="var(--color-white)"
+            iconBackgroundColor="var(--color-grey-dark)"
+            textColor="var(--color-white)"
             onClick={() => console.log('Сканировать')}
           >
             сканировать
           </IconButton>
           <IconButton
             icon="credit"
-            iconColor="#FFFFFF"
-            iconBackgroundColor="#3C3C3C"
-            textColor="#FFFFFF"
+            iconColor="var(--color-white)"
+            iconBackgroundColor="var(--color-grey-dark)"
+            textColor="var(--color-white)"
             onClick={() => console.log('На карту')}
           >
             на карту
           </IconButton>
           <IconButton
             icon="income"
-            iconColor="#FFFFFF"
-            iconBackgroundColor="#3C3C3C"
-            textColor="#FFFFFF"
+            iconColor="var(--color-white)"
+            iconBackgroundColor="var(--color-grey-dark)"
+            textColor="var(--color-white)"
             onClick={() => console.log('По телефону')}
           >
             по телефону
@@ -130,8 +133,8 @@ export const Main: React.FC<MainProps> = ({ onNavigate }) => {
             <ProductCard
               title="Показать QR-код"
               icon="qr"
-              iconColor="#8E9094"
-              iconBackgroundColor="#EFF1F3"
+              iconColor="var(--color-grey)"
+              iconBackgroundColor="var(--color-grey-light)"
               titleVariant="regularS"
               onClick={() => console.log('Показать QR-код')}
               className={styles.transferCard}
@@ -140,8 +143,8 @@ export const Main: React.FC<MainProps> = ({ onNavigate }) => {
             <ProductCard
               title="Отправить ссылку"
               icon="link"
-              iconColor="#8E9094"
-              iconBackgroundColor="#EFF1F3"
+              iconColor="var(--color-grey)"
+              iconBackgroundColor="var(--color-grey-light)"
               titleVariant="regularS"
               onClick={() => console.log('Отправить ссылку')}
               className={styles.transferCard}
@@ -150,8 +153,8 @@ export const Main: React.FC<MainProps> = ({ onNavigate }) => {
             <ProductCard
               title="Поделиться реквизитами"
               icon="card"
-              iconColor="#8E9094"
-              iconBackgroundColor="#EFF1F3"
+              iconColor="var(--color-grey)"
+              iconBackgroundColor="var(--color-grey-light)"
               titleVariant="regularS"
               onClick={() => console.log('Поделиться реквизитами')}
               className={styles.transferCard}
@@ -160,8 +163,8 @@ export const Main: React.FC<MainProps> = ({ onNavigate }) => {
             <ProductCard
               title="Создать сбор"
               icon="gift"
-              iconColor="#8E9094"
-              iconBackgroundColor="#EFF1F3"
+              iconColor="var(--color-grey)"
+              iconBackgroundColor="var(--color-grey-light)"
               titleVariant="regularS"
               onClick={() => console.log('Создать сбор')}
               className={styles.transferCard}
@@ -203,7 +206,7 @@ export const Main: React.FC<MainProps> = ({ onNavigate }) => {
                 subtitle={product.subtitle}
                 icon={product.icon}
                 iconColor="white"
-                iconBackgroundColor="#CBFC05"
+                iconBackgroundColor="var(--color-green-primary)"
                 titleVariant="BoldM"
                 subtitleVariant="regularS"
                 subtitleColor="secondary"

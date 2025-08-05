@@ -1,4 +1,4 @@
-.products {
+.ratingScreen {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -6,6 +6,7 @@
   background: var(--color-background-primary);
 }
 
+/* Header Styles */
 .header {
   background: var(--color-background-primary);
   padding: 2rem 1rem 1rem;
@@ -19,43 +20,50 @@
   margin-bottom: 0.5rem;
 }
 
-.ratingPlaceholder {
-  height: 0.75rem; /* 0.5rem margin-top + 0.25rem height */
+.ratingScale {
+  display: flex;
+  justify-content: center;
   width: 100%;
 }
 
+.rating {
+  width: 100%;
+}
+
+/* Content Styles */
 .content {
   flex: 1;
   padding: 1.5rem 1rem 0;
   overflow-y: auto;
   border-radius: 2rem 2rem 0 0;
-  background: var(--color-background-secondary);
+  background: var(--color-white);
 }
 
 .section {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
 }
 
 .sectionTitle {
   margin-bottom: 1rem;
 }
 
-.creditProducts,
-.savingProducts {
+/* Next Level Products Styles */
+.productsContainer {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
 
-.productCard {
-  width: 100%;
+
+
+/* Actions Styles */
+.actionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-.disabledCard {
-  opacity: 0.6;
-  cursor: default;
-}
-
+/* Menu Spacer */
 .menuSpacer {
-  height: 5rem;
+  height: 6rem;
 }

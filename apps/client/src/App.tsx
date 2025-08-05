@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Main } from './components/Main';
 import { Products } from './components/Products';
+import { RatingScreen } from './components/RatingScreen';
 import '@packages/ui/styles';
 
 type Screen = 'main' | 'products' | 'rating' | 'profile';
@@ -19,8 +20,7 @@ function App() {
       case 'products':
         return <Products onNavigate={handleNavigate} />;
       case 'rating':
-        // TODO: Implement Rating screen
-        return <div>Рейтинг - в разработке</div>;
+        return <RatingScreen onNavigate={handleNavigate} />;
       case 'profile':
         // TODO: Implement Profile screen
         return <div>Профиль - в разработке</div>;

@@ -27,8 +27,8 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
 export const Badge: React.FC<BadgeProps> = ({
   children,
   variant = 'regularS',
-  backgroundColor = '#CBFC05',
-  textColor = '#FFFFFF',
+  backgroundColor = 'var(--color-green-primary)',
+  textColor = 'var(--color-white)',
   className,
   style,
   ...rest

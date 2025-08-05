@@ -40,37 +40,35 @@
 
 /* Color classes */
 .colorPrimary {
-  color: #1F2937; /* Тёмно-серый, основной цвет текста */
+  color: var(--color-text-primary); /* Тёмно-серый, основной цвет текста */
 }
 
 .colorSecondary {
-  color: #747B7A; /* Серый, вторичный цвет текста */
+  color: var(--color-text-secondary); /* Вторичный цвет текста */
 }
 
-.colorMuted {
-  color: #8B8B8B; /* Светло-серый, приглушённый текст */
+.colorGrey {
+  color: var(--color-grey); /* Серый цвет текста */
 }
 
 .colorSuccess {
-  color: #10B981; /* Зелёный, успех */
+  color: var(--color-success); /* Зелёный, успех */
 }
 
 .colorError {
-  color: #EF4444; /* Красный, ошибка */
+  color: var(--color-error); /* Красный, ошибка */
 }
 
 .colorWarning {
-  color: #F59E0B; /* Жёлтый, предупреждение */
+  color: var(--color-warning); /* Жёлтый, предупреждение */
 }
 
 .colorInfo {
-  color: #3B82F6; /* Синий, информация */
+  color: var(--color-info); /* Синий, информация */
 }
 
 .colorWhite {
-  color: #FFFFFF; /* Белый */
+  color: var(--color-white); /* Белый */
 }
 
-.colorInactive {
-  color: #A3A3A3; /* Серый для неактивных элементов */
-}
+
