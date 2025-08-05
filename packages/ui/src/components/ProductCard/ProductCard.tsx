@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardProps } from '../Card';
-import { Text, TextVariant } from '../Text';
+import { Text, TextVariant, TextColor } from '../Text';
 import { Icon, IconName } from '../Icon';
 import styles from './ProductCard.module.css';
 
@@ -28,6 +28,14 @@ export interface ProductCardProps extends Omit<CardProps, 'children'> {
    */
   subtitleVariant?: TextVariant;
   /**
+   * Цвет заголовка
+   */
+  titleColor?: TextColor;
+  /**
+   * Цвет подзаголовка
+   */
+  subtitleColor?: TextColor;
+  /**
    * Цвет иконки
    * @default 'currentColor'
    */
@@ -50,6 +58,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   icon,
   titleVariant = 'regularM',
   subtitleVariant = 'headingS',
+  titleColor,
+  subtitleColor,
   iconColor = 'currentColor',
   iconBackgroundColor = '#F3F4F6',
   onClick,
@@ -76,6 +86,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <Icon
             name={icon}
             style={{ color: iconColor }}
+            className={styles.icon}
           />
         </div>
       )}
@@ -83,6 +94,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       <div className={styles.textContainer}>
         <Text
           variant={titleVariant}
+          color={titleColor}
           className={styles.title}
         >
           {title}
@@ -91,6 +103,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         {subtitle && (
           <Text
             variant={subtitleVariant}
+            color={subtitleColor}
             className={styles.subtitle}
           >
             {subtitle}

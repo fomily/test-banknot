@@ -12,16 +12,8 @@ Avoid using position: absolute unless absolutely necessary. Use flex or grid lay
 
 Do not use :hover or :focus-visible — they are unsupported or unnecessary in WebView/mobile environments.
 
-Avoid heavy UI libraries. Use only custom components or Tailwind CSS (if available in the project).Components must be responsive and suitable for WebView. They should render correctly on screens from 320px to 500px wide. Avoid fixed px and media queries; use flex, grid, and gap instead. Containers should use width: 100% when needed.
-
-Use rem or % for fonts and spacing. px is allowed only for fixed-size elements: icons are 36x36, avatars are 48x48. Text sizes are controlled via the variant prop in the Text component. The Commissioner font is loaded once, and text styles are selected from predefined variants.
-
-Default sizes are: icons — 36x36, avatars — 48x48. These can be overridden via props, but defaults must remain fixed.
-
-Avoid using position: absolute unless absolutely necessary. Use flex or grid layout for positioning elements.
-
-Do not use :hover or :focus-visible — they are unsupported or unnecessary in WebView/mobile environments.
-
 Avoid heavy UI libraries. Use only custom components or Tailwind CSS (if available in the project).
 
-Use css modules
+Always use css modules, not inline styles
+
+Never create new text style, use existing Text components only. If you need a new one, create new style in the existing Text component

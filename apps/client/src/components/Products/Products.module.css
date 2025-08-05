@@ -1,0 +1,54 @@
+.products {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #FFFFFF;
+}
+
+.header {
+  background-color: #2C2C2C;
+  padding: 1rem;
+  padding-top: 4rem;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+
+.ratingSection {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.content {
+  flex: 1;
+  padding: 1.5rem 1rem 0;
+  overflow-y: auto;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.sectionTitle {
+  margin-bottom: 1rem;
+}
+
+.creditProducts,
+.savingProducts {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.productCard {
+  width: 100%;
+}
+
+.disabledCard {
+  opacity: 0.6;
+}
+
+.menuSpacer {
+  height: 5rem;
+}

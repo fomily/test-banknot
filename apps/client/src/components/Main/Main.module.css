@@ -9,8 +9,7 @@
 /* Header Styles */
 .header {
   background: #212121;
-  padding: 3rem 1rem 1rem;
-  color: white;
+  padding: 2rem 1rem 1rem;
 }
 
 .ratingSection {
@@ -25,7 +24,7 @@
 
 .balanceSection {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 
@@ -46,7 +45,7 @@
 }
 
 .section {
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
 }
 
 .sectionTitle {
@@ -58,15 +57,6 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.5rem;
-}
-
-.transferCard {
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.transferCard:active {
-  transform: scale(0.98);
 }
 
 .transferCardContent {
@@ -109,32 +99,13 @@
   align-items: center;
   gap: 0.5rem;
   min-width: 4rem;
-  cursor: pointer;
 }
-
-.favoriteAvatar {
-  transition: transform 0.2s ease;
-}
-
-.favoriteItem:active .favoriteAvatar {
-  transform: scale(0.95);
-}
-
-
 
 /* Products Styles */
 .productsContainer {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-}
-
-.productCard {
-  transition: transform 0.2s ease;
-}
-
-.productCard:active {
-  transform: scale(0.98);
 }
 
 /* Menu Spacer - увеличиваем высоту для отступа от нового меню */

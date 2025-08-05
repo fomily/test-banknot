@@ -70,7 +70,7 @@ export const Main: React.FC = () => {
       {/* Header Section */}
       <div className={styles.header}>
         <div className={styles.ratingSection}>
-          <Text variant="regularS" style={{ color: '#A0AEC0' }}>
+          <Text variant="regularS" color="muted">
             рейтинг:
           </Text>
           <Badge backgroundColor="#CBFC05" textColor="#000000">
@@ -79,8 +79,8 @@ export const Main: React.FC = () => {
         </div>
 
         <div className={styles.balanceSection}>
-          <Text variant="headingL" style={{ color: '#FFFFFF' }}>
-            60 000, <Text variant="headingL" as="span" style={{ color: '#A0AEC0' }}>34 Р</Text>
+          <Text variant="headingL" color="white">
+            60 000, <Text variant="headingL" as="span" color="muted">34 Р</Text>
           </Text>
         </div>
 
@@ -178,7 +178,7 @@ export const Main: React.FC = () => {
                   alt={contact.name}
                   className={styles.favoriteAvatar}
                 />
-                <Text variant="regularS" style={{ textAlign: 'center', color: '#4A5568', fontWeight: 'var(--font-weight-medium)' }}>
+                <Text variant="regularS">
                   {contact.name}
                 </Text>
               </div>
@@ -200,8 +200,9 @@ export const Main: React.FC = () => {
                 icon={product.icon}
                 iconColor="white"
                 iconBackgroundColor="#CBFC05"
-                titleVariant="headingS"
+                titleVariant="BoldM"
                 subtitleVariant="regularS"
+                subtitleColor="secondary"
                 onClick={() => console.log(`Продукт ${index + 1}`)}
                 className={styles.productCard}
               />

@@ -1,10 +1,18 @@
 import React from 'react';
-import { IconButton, IconButtonProps } from '../IconButton';
+import { Icon, IconName } from '../Icon';
 import { Avatar } from '../Avatar';
 import { Text } from '../Text';
 import styles from './Menu.module.css';
 
-export interface MenuItemProps extends Omit<IconButtonProps, 'direction'> {
+export interface MenuItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  /**
+   * Иконка пункта меню
+   */
+  icon: IconName;
+  /**
+   * Текст пункта меню
+   */
+  children: React.ReactNode;
   /**
    * Активность пункта меню
    * @default false
@@ -28,22 +36,33 @@ export interface MenuProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({
+  icon,
+  children,
   isActive = false,
-  textColor,
-  iconColor,
+  className,
   ...props
 }) => {
-  const activeTextColor = isActive ? '#FFFFFF' : (textColor || '#A3A3A3');
-  const activeIconColor = isActive ? '#FFFFFF' : (iconColor || '#A3A3A3');
+  const textColor = isActive ? 'white' : 'inactive';
+  const iconColor = isActive ? '#FFFFFF' : '#A3A3A3';
 
   return (
-    <IconButton
+    <button
       {...props}
-      textColor={activeTextColor}
-      iconColor={activeIconColor}
-      direction="column"
-      className={`${styles.menuItem} ${isActive ? styles.active : ''}`}
-    />
+      className={`${styles.menuItem} ${isActive ? styles.active : ''} ${className || ''}`}
+    >
+      <Icon
+        name={icon}
+        color={iconColor}
+        className={styles.icon}
+      />
+      <Text
+        variant="regularS"
+        color={textColor}
+        as="span"
+      >
+        {children}
+      </Text>
+    </button>
   );
 };
 
@@ -62,12 +81,13 @@ export const Menu: React.FC<MenuProps> = ({
       {items.map((item, index) => {
         // Последний элемент - профиль с аватаром
         if (index === items.length - 1) {
-          const textColor = item.isActive ? '#FFFFFF' : '#A3A3A3';
+          const textColor = item.isActive ? 'white' : 'inactive';
+          const { icon, ...itemProps } = item;
           return (
             <button
               key={index}
-              className={`${styles.menuItem} ${styles.profileItem} ${item.isActive ? styles.active : ''}`}
-              onClick={item.onClick}
+              {...itemProps}
+              className={`${styles.menuItem} ${item.isActive ? styles.active : ''} ${itemProps.className || ''}`}
             >
               <Avatar
                 src={avatarSrc}
@@ -76,8 +96,8 @@ export const Menu: React.FC<MenuProps> = ({
               />
               <Text
                 variant="regularS"
+                color={textColor}
                 as="span"
-                style={{ color: textColor, fontSize: 'var(--font-size-xs)', textAlign: 'center' }}
               >
                 {item.children}
               </Text>

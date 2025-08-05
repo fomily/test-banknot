@@ -6,7 +6,8 @@ export type TextVariant =
   | 'regularM'
   | 'headingS'
   | 'headingM'
-  | 'headingL';
+  | 'headingL'
+  | 'BoldM';
 
 export type TextColor =
   | 'primary'
@@ -15,7 +16,9 @@ export type TextColor =
   | 'success'
   | 'error'
   | 'warning'
-  | 'info';
+  | 'info'
+  | 'white'
+  | 'inactive';
 
 export interface TextProps extends React.HTMLAttributes<HTMLSpanElement> {
   variant?: TextVariant;

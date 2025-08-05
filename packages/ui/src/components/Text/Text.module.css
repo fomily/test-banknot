@@ -32,6 +32,12 @@
   line-height: var(--line-height-tight);
 }
 
+.BoldM {
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+}
+
 /* Color classes */
 .colorPrimary {
   color: #1F2937; /* Тёмно-серый, основной цвет текста */
@@ -59,4 +65,12 @@
 
 .colorInfo {
   color: #3B82F6; /* Синий, информация */
+}
+
+.colorWhite {
+  color: #FFFFFF; /* Белый */
+}
+
+.colorInactive {
+  color: #A3A3A3; /* Серый для неактивных элементов */
 }
