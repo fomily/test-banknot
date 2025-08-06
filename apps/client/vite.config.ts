@@ -4,6 +4,7 @@ import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
+  base: process.env.NODE_ENV === 'production' ? '/test-banknot/' : '/',
   resolve: {
     alias: {
       '@packages/ui': path.resolve(__dirname, '../../packages/ui/src'),
