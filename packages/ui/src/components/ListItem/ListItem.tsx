@@ -105,7 +105,7 @@ export const ListItem: React.FC<ListItemProps> = ({
         {subtitle && (
           <Text
             variant={subtitleVariant}
-            color={subtitleColor}
+            color={subtitleColor as TextColor}
             className={styles.subtitle}
           >
             {subtitle}
