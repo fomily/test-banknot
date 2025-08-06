@@ -8,7 +8,7 @@
     "lint": "echo lint stub"
   },
   "dependencies": {
-    "@packages/ui": "workspace:*",
+    "@packages/ui": "file:../../packages/ui",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
