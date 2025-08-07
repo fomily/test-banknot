@@ -43,7 +43,7 @@
 /* Content Styles */
 .content {
   flex: 1;
-  padding: 1.5rem 1rem 0;
+  padding: 1.5rem 1rem 6rem;
   overflow-y: auto;
   border-radius: 2rem 2rem 0 0;
   background: var(--color-background-secondary);
