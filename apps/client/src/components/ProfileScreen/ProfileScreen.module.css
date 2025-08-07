@@ -1,0 +1,113 @@
+.profileScreen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  background: var(--color-background-primary);
+}
+
+/* Header Styles */
+.header {
+  background: var(--color-background-primary);
+  padding: 1rem 1rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* User Info Styles */
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.userAvatar {
+  width: 3.5rem;
+  height: 3.5rem;
+  flex-shrink: 0;
+}
+
+.userDetails {
+  flex: 1;
+  min-width: 0;
+}
+
+.userName {
+  margin-bottom: 0.5rem;
+  word-wrap: break-word;
+}
+
+.ratingContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Content Styles */
+.content {
+  flex: 1;
+  padding: 1.5rem 1rem 0;
+  overflow-y: auto;
+  border-radius: 2rem 2rem 0 0;
+  background: var(--color-background-secondary);
+}
+
+.section {
+  margin-bottom: 1.25rem;
+}
+
+.sectionTitle {
+  margin-bottom: 1rem;
+}
+
+/* Actions List Styles */
+.actionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.actionCard {
+  width: 100%;
+}
+
+/* Адаптивность для WebView */
+@media (max-width: 500px) {
+  .header {
+    padding: 1rem 1rem 1rem;
+  }
+
+  .content {
+    padding: 1.5rem 1rem 0;
+  }
+
+  .userAvatar {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .userName {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .header {
+    padding: 1rem 0.75rem 1rem;
+  }
+
+  .content {
+    padding: 1.5rem 0.75rem 0;
+  }
+
+  .userInfo {
+    gap: 1rem;
+  }
+
+  .userAvatar {
+    width: 3rem;
+    height: 3rem;
+  }
+}

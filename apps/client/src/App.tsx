@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Main } from './components/Main';
 import { Products } from './components/Products';
 import { RatingScreen } from './components/RatingScreen';
+import { ProfileScreen } from './components/ProfileScreen';
 import { Layout } from './components/Layout';
 import '@packages/ui/styles';
 
@@ -23,8 +24,7 @@ function App() {
       case 'rating':
         return <RatingScreen onNavigate={handleNavigate} />;
       case 'profile':
-        // TODO: Implement Profile screen
-        return <div>Профиль - в разработке</div>;
+        return <ProfileScreen onNavigate={handleNavigate} />;
       default:
         return <Main onNavigate={handleNavigate} />;
     }
