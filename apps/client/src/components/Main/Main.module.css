@@ -92,6 +92,10 @@
   padding-bottom: 0.5rem;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  margin-right: -1rem;
+  padding-right: 1rem;
+  margin-left: -1rem;
+  padding-left: 1rem;
 }
 
 .favoritesContainer::-webkit-scrollbar {
