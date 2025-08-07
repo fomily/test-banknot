@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Main } from './components/Main';
 import { Products } from './components/Products';
 import { RatingScreen } from './components/RatingScreen';
+import { Layout } from './components/Layout';
 import '@packages/ui/styles';
 
 type Screen = 'main' | 'products' | 'rating' | 'profile';
@@ -29,7 +30,11 @@ function App() {
     }
   };
 
-  return renderScreen();
+  return (
+    <Layout currentScreen={currentScreen} onNavigate={handleNavigate}>
+      {renderScreen()}
+    </Layout>
+  );
 }
 
 export default App;

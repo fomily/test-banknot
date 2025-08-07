@@ -4,9 +4,7 @@ import {
   Badge,
   IconButton,
   Avatar,
-  ProductCard,
-  Menu,
-  MenuItemProps
+  ProductCard
 } from '@packages/ui';
 import styles from './Main.module.css';
 
@@ -47,30 +45,7 @@ export const Main: React.FC<MainProps> = ({ onNavigate }) => {
     }
   ], []);
 
-  // Данные для нижнего меню - мемоизируем, но зависят от onNavigate
-  const menuItems: MenuItemProps[] = React.useMemo(() => [
-    {
-      icon: 'menuHome',
-      children: 'главная',
-      isActive: true,
-      onClick: () => onNavigate('main')
-    },
-    {
-      icon: 'menuProducts',
-      children: 'продукты',
-      onClick: () => onNavigate('products')
-    },
-    {
-      icon: 'menuRating',
-      children: 'рейтинг',
-      onClick: () => onNavigate('rating')
-    },
-    {
-      icon: 'profile',
-      children: 'профиль',
-      onClick: () => onNavigate('profile')
-    }
-  ], [onNavigate]);
+
 
   return (
     <div className={styles.main}>
@@ -219,16 +194,7 @@ export const Main: React.FC<MainProps> = ({ onNavigate }) => {
           </div>
         </div>
 
-        {/* Отступ для нижнего меню */}
-        <div className={styles.menuSpacer} />
       </div>
-
-      {/* Bottom Menu */}
-      <Menu
-        items={menuItems}
-        avatarSrc="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=64&h=64&fit=crop&crop=entropy&q=80"
-        avatarAlt="Профиль"
-      />
     </div>
   );
 };

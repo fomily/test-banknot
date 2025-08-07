@@ -2,9 +2,7 @@ import React from 'react';
 import {
   Text,
   Badge,
-  ProductCard,
-  Menu,
-  MenuItemProps
+  ProductCard
 } from '@packages/ui';
 import styles from './Products.module.css';
 
@@ -13,30 +11,6 @@ interface ProductsProps {
 }
 
 export const Products: React.FC<ProductsProps> = ({ onNavigate }) => {
-  // Данные для нижнего меню - мемоизируем, но зависят от onNavigate
-  const menuItems: MenuItemProps[] = React.useMemo(() => [
-    {
-      icon: 'menuHome',
-      children: 'главная',
-      onClick: () => onNavigate('main')
-    },
-    {
-      icon: 'menuProducts',
-      children: 'продукты',
-      isActive: true,
-      onClick: () => onNavigate('products')
-    },
-    {
-      icon: 'menuRating',
-      children: 'рейтинг',
-      onClick: () => onNavigate('rating')
-    },
-    {
-      icon: 'profile',
-      children: 'профиль',
-      onClick: () => onNavigate('profile')
-    }
-  ], [onNavigate]);
 
   return (
     <div className={styles.products}>
@@ -138,16 +112,7 @@ export const Products: React.FC<ProductsProps> = ({ onNavigate }) => {
           </div>
         </div>
 
-        {/* Отступ для нижнего меню */}
-        <div className={styles.menuSpacer} />
       </div>
-
-      {/* Bottom Menu */}
-      <Menu
-        items={menuItems}
-        avatarSrc="https://i.pravatar.cc/32?img=7"
-        avatarAlt="Профиль"
-      />
     </div>
   );
 };

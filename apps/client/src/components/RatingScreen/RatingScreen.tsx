@@ -4,9 +4,7 @@ import {
   Badge,
   Rating,
   ProductCard,
-  ListItem,
-  Menu,
-  MenuItemProps
+  ListItem
 } from '@packages/ui';
 import styles from './RatingScreen.module.css';
 
@@ -15,30 +13,6 @@ interface RatingScreenProps {
 }
 
 export const RatingScreen: React.FC<RatingScreenProps> = ({ onNavigate }) => {
-  // Данные для нижнего меню
-  const menuItems: MenuItemProps[] = React.useMemo(() => [
-    {
-      icon: 'menuHome',
-      children: 'главная',
-      onClick: () => onNavigate('main')
-    },
-    {
-      icon: 'menuProducts',
-      children: 'продукты',
-      onClick: () => onNavigate('products')
-    },
-    {
-      icon: 'menuRating',
-      children: 'рейтинг',
-      isActive: true,
-      onClick: () => onNavigate('rating')
-    },
-    {
-      icon: 'profile',
-      children: 'профиль',
-      onClick: () => onNavigate('profile')
-    }
-  ], [onNavigate]);
 
   // Данные для следующего уровня рейтинга
   const nextLevelProducts = React.useMemo(() => [
@@ -139,16 +113,7 @@ export const RatingScreen: React.FC<RatingScreenProps> = ({ onNavigate }) => {
           </div>
         </div>
 
-        {/* Отступ для нижнего меню */}
-        <div className={styles.menuSpacer} />
       </div>
-
-      {/* Bottom Menu */}
-      <Menu
-        items={menuItems}
-        avatarSrc="https://i.pravatar.cc/32?img=7"
-        avatarAlt="Профиль"
-      />
     </div>
   );
 };
