@@ -22,8 +22,8 @@ import { Icon } from '@ui';
 
 // В контексте с текстом
 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-  <Icon name="income" style={{ color: '#FF9800' }} />
-  <Text variant="HeadingM">Доходы</Text>
+  <Icon name="qr" style={{ color: '#FF9800' }} />
+  <Text variant="HeadingM">QR код</Text>
 </div>
 ```
 
@@ -31,7 +31,6 @@ import { Icon } from '@ui';
 
 - `credit` - иконка кредитной карты
 - `qr` - иконка QR-кода
-- `income` - иконка дохода/прибыли
 
 ## Добавление новых иконок
 
@@ -46,4 +45,4 @@ import { Icon } from '@ui';
 - Размер: 36×36 пикселей
 - Цвет: используйте `currentColor` для stroke/fill
 - Стиль: единообразный (stroke или fill)
-- Оптимизация: удалите ненужные атрибуты 
+- Оптимизация: удалите ненужные атрибуты

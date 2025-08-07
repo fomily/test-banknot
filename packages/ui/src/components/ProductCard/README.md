@@ -17,7 +17,7 @@ interface ProductCardProps {
   // Контент
   title: string;                    // Основной заголовок
   subtitle?: string;                // Дополнительный подзаголовок
-  icon?: IconName;                  // Иконка ('credit' | 'qr' | 'income')
+  icon?: IconName;                  // Иконка ('credit' | 'qr')
 
   // Стилизация
   titleVariant?: TextVariant;       // Стиль заголовка
@@ -38,7 +38,7 @@ interface ProductCardProps {
 ### Финансовые продукты с суммами
 ```tsx
 <ProductCard
-  icon="income"
+  icon="cardFilled"
   iconColor="#10B981"
   title="30 500,16 ₽"
   subtitle="Накопительный счёт"
@@ -98,7 +98,7 @@ interface ProductCardProps {
 ## Доступные иконки
 
 - `credit` - иконка кредитной карты (синий #6366F1)
-- `income` - стрелка вверх (зеленый #10B981)
+- `cardFilled` - заполненная карта (зеленый #10B981)
 - `qr` - QR код (оранжевый #F59E0B)
 
 ## Варианты текста

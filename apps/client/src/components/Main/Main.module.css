@@ -9,7 +9,7 @@
 /* Header Styles */
 .header {
   background: var(--color-background-primary);
-  padding: 2rem 1rem 1rem;
+  padding: 1.5rem 1rem 1rem;
 }
 
 .ratingSection {
@@ -17,7 +17,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0rem;
 }
 
 .ratingPlaceholder {
@@ -29,7 +29,7 @@
 
 .balanceSection {
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 
 

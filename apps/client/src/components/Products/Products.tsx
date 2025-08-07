@@ -16,18 +16,18 @@ export const Products: React.FC<ProductsProps> = ({ onNavigate }) => {
   // Данные для нижнего меню - мемоизируем, но зависят от onNavigate
   const menuItems: MenuItemProps[] = React.useMemo(() => [
     {
-      icon: 'home',
+      icon: 'menuHome',
       children: 'главная',
       onClick: () => onNavigate('main')
     },
     {
-      icon: 'chart',
+      icon: 'menuProducts',
       children: 'продукты',
       isActive: true,
       onClick: () => onNavigate('products')
     },
     {
-      icon: 'trending-up',
+      icon: 'menuRating',
       children: 'рейтинг',
       onClick: () => onNavigate('rating')
     },
@@ -66,7 +66,7 @@ export const Products: React.FC<ProductsProps> = ({ onNavigate }) => {
             <ProductCard
               title="Подключить овердрафт"
               subtitle="Для непредвиденных трат"
-              icon="credit"
+              icon="overdraft"
               iconColor="var(--color-green-dark)"
               iconBackgroundColor="var(--color-green-light)"
               titleVariant="regularM"
@@ -79,7 +79,7 @@ export const Products: React.FC<ProductsProps> = ({ onNavigate }) => {
             <ProductCard
               title="Потребительский кредит"
               subtitle="До 5 млн рублей на любые цели"
-              icon="credit"
+              icon="card"
               iconColor="var(--color-green-dark)"
               iconBackgroundColor="var(--color-green-light)"
               titleVariant="regularM"

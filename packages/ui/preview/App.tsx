@@ -23,10 +23,10 @@ function App() {
           <Text variant="regularM" color="primary">Primary color text (тёмно-серый)</Text>
           <Text variant="regularM" color="secondary">Secondary color text (#747B7A)</Text>
           <Text variant="regularM" color="white">Muted color text (white)</Text>
-          <Text variant="regularM" color="success">Success color text (зелёный)</Text>
-          <Text variant="regularM" color="error">Error color text (красный)</Text>
-          <Text variant="regularM" color="warning">Warning color text (жёлтый)</Text>
-          <Text variant="regularM" color="info">Info color text (синий)</Text>
+          <Text variant="regularM" color="primary">Primary color text (тёмно-серый)</Text>
+          <Text variant="regularM" color="secondary">Secondary color text (#747B7A)</Text>
+          <Text variant="regularM" color="grey">Grey color text (серый)</Text>
+          <Text variant="regularM" color="white">White color text (белый)</Text>
           <Text variant="regularM">Default color text (без цвета)</Text>
         </div>
       </div>
@@ -50,14 +50,13 @@ function App() {
       <div style={{ marginBottom: '2rem' }}>
         <h2>Icon Component</h2>
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-          <Icon name="credit" />
+          <Icon name="card" />
           <Icon name="qr" />
-          <Icon name="income" />
+
           <Icon name="link" />
           <Icon name="card" />
           <Icon name="gift" />
-          <Icon name="home" />
-          <Icon name="chart" />
+          <Icon name="menuHome" />
           <Icon name="profile" />
         </div>
       </div>
@@ -77,7 +76,7 @@ function App() {
           <IconButton icon="qr" iconColor="#FFFFFF" textColor="#FFFFFF" style={{background: '#2D3748', padding: '1rem', borderRadius: '0.5rem'}}>
             сканировать
           </IconButton>
-          <IconButton icon="credit" iconColor="#10B981" textColor="#374151">
+          <IconButton icon="card" iconColor="#10B981" textColor="#374151">
             на карту
           </IconButton>
         </div>
@@ -97,7 +96,7 @@ function App() {
         <h3>Финансовые продукты</h3>
         <div style={{ display: 'grid', gap: '1rem', marginBottom: '1.5rem' }}>
           <ProductCard
-            icon="income"
+            icon="cardFilled"
             iconColor="#10B981"
             title="30 500,16 ₽"
             subtitle="Накопительный счёт"
@@ -107,7 +106,7 @@ function App() {
           />
 
           <ProductCard
-            icon="income"
+            icon="cardFilled"
             iconColor="#10B981"
             title="10 234,32 ₽"
             subtitle="Накопительный счёт"
@@ -119,35 +118,35 @@ function App() {
 
         <h3>Кредитные продукты</h3>
         <div style={{ display: 'grid', gap: '1rem', marginBottom: '1.5rem' }}>
-          <ProductCard
-            icon="credit"
-            iconColor="#6366F1"
-            title="Подключить овердрафт"
-            subtitle="Для непредвиденных трат"
-            titleVariant="regularM"
-            subtitleVariant="regularS"
-            onClick={() => console.log('Овердрафт clicked')}
-          />
+                      <ProductCard
+              icon="card"
+              iconColor="#6366F1"
+              title="Подключить овердрафт"
+              subtitle="Для непредвиденных трат"
+              titleVariant="regularM"
+              subtitleVariant="regularS"
+              onClick={() => console.log('Овердрафт clicked')}
+            />
 
-          <ProductCard
-            icon="credit"
-            iconColor="#6366F1"
-            title="Потребительский кредит"
-            subtitle="До 5 млн рублей на любые цели"
-            titleVariant="regularM"
-            subtitleVariant="regularS"
-            onClick={() => console.log('Кредит clicked')}
-          />
+            <ProductCard
+              icon="card"
+              iconColor="#6366F1"
+              title="Потребительский кредит"
+              subtitle="До 5 млн рублей на любые цели"
+              titleVariant="regularM"
+              subtitleVariant="regularS"
+              onClick={() => console.log('Кредит clicked')}
+            />
 
-          <ProductCard
-            icon="credit"
-            iconColor="#6366F1"
-            title="Ипотечный кредит"
-            subtitle="До 30 млн рублей на покупку жилья"
-            titleVariant="regularM"
-            subtitleVariant="regularS"
-            onClick={() => console.log('Ипотека clicked')}
-          />
+            <ProductCard
+              icon="card"
+              iconColor="#6366F1"
+              title="Ипотечный кредит"
+              subtitle="До 30 млн рублей на покупку жилья"
+              titleVariant="regularM"
+              subtitleVariant="regularS"
+              onClick={() => console.log('Ипотека clicked')}
+            />
         </div>
 
         <h3>Дополнительные услуги</h3>

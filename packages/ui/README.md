@@ -57,7 +57,7 @@ import { Card } from '@ui';
 import { Icon } from '@ui';
 
 <Icon name="credit" />
-<Icon name="income" />
+<Icon name="qr" />
 <Icon name="qr" />
 ```
 
@@ -78,7 +78,7 @@ import { Avatar } from '@ui';
 import { ProductCard } from '@ui';
 
 <ProductCard
-  icon="income"
+  icon="cardFilled"
   iconColor="#10B981"
   title="30 500,16 ₽"
   subtitle="Накопительный счёт"

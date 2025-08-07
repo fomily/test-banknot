@@ -17,48 +17,51 @@ interface MainProps {
 export const Main: React.FC<MainProps> = ({ onNavigate }) => {
   // Данные для секции "Избранное" - мемоизируем чтобы не пересоздавать
   const favoriteContacts = React.useMemo(() => [
-    { name: 'Вероника', avatar: 'https://i.pravatar.cc/48?img=1' },
-    { name: 'Татьяна', avatar: 'https://i.pravatar.cc/48?img=2' },
-    { name: 'Паша', avatar: 'https://i.pravatar.cc/48?img=3' },
-    { name: 'Ира', avatar: 'https://i.pravatar.cc/48?img=4' },
-    { name: 'Мяо Ли', avatar: 'https://i.pravatar.cc/48?img=5' },
-    { name: 'Борис', avatar: 'https://i.pravatar.cc/48?img=6' },
+    { name: 'Вероника', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&fit=crop&crop=entropy&q=80' },
+    { name: 'Татьяна', avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=96&h=96&fit=crop&crop=entropy&q=80' },
+    { name: 'Паша', avatar: 'https://images.unsplash.com/photo-1587397845856-e6cf49176c70?w=96&h=96&fit=crop&crop=entropy&q=80' },
+    { name: 'Ира', avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=96&h=96&fit=crop&crop=entropy&q=80' },
+    { name: 'Максим', avatar: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=96&h=96&fit=crop&crop=entropy&q=80' },
+    { name: 'Борис', avatar: 'https://images.unsplash.com/photo-1468218457742-ee484fe2fe4c?w=96&h=96&fit=crop&crop=entropy&q=80' },
   ], []);
 
   // Данные для секции "Мои продукты" - мемоизируем
   const products = React.useMemo(() => [
     {
-      title: '30 500, 16 Р',
+      title: '30 500, 16 ₽',
       subtitle: 'Накопительный счёт',
-      icon: 'income' as const
+      icon: 'cardFilled' as const,
+      iconColor: 'var(--color-green-primary)' as const
     },
     {
-      title: '10 234, 32 Р',
+      title: '10 234, 32 ₽',
       subtitle: 'Накопительный счёт',
-      icon: 'income' as const
+      icon: 'cardFilled' as const,
+      iconColor: 'var(--color-green-primary)' as const
     },
     {
-      title: '3 421, 12 Р',
+      title: '3 421, 12 ₽',
       subtitle: 'Накопительный счёт',
-      icon: 'income' as const
+      icon: 'cardFilled' as const,
+      iconColor: 'var(--color-green-primary)' as const
     }
   ], []);
 
   // Данные для нижнего меню - мемоизируем, но зависят от onNavigate
   const menuItems: MenuItemProps[] = React.useMemo(() => [
     {
-      icon: 'home',
+      icon: 'menuHome',
       children: 'главная',
       isActive: true,
       onClick: () => onNavigate('main')
     },
     {
-      icon: 'chart',
+      icon: 'menuProducts',
       children: 'продукты',
       onClick: () => onNavigate('products')
     },
     {
-      icon: 'trending-up',
+      icon: 'menuRating',
       children: 'рейтинг',
       onClick: () => onNavigate('rating')
     },
@@ -86,8 +89,7 @@ export const Main: React.FC<MainProps> = ({ onNavigate }) => {
         <div className={styles.ratingPlaceholder} />
 
         <div className={styles.balanceSection}>
-          <Text variant="headingL" color="white">
-            60 000, <Text variant="headingL" as="span" color="white">34 Р</Text>
+          <Text variant="currency" color="white" currencyValue="60 000,34">
           </Text>
         </div>
 
@@ -102,7 +104,7 @@ export const Main: React.FC<MainProps> = ({ onNavigate }) => {
             сканировать
           </IconButton>
           <IconButton
-            icon="credit"
+            icon="card"
             iconColor="var(--color-white)"
             iconBackgroundColor="var(--color-grey-dark)"
             textColor="var(--color-white)"
@@ -111,7 +113,7 @@ export const Main: React.FC<MainProps> = ({ onNavigate }) => {
             на карту
           </IconButton>
           <IconButton
-            icon="income"
+            icon="phone"
             iconColor="var(--color-white)"
             iconBackgroundColor="var(--color-grey-dark)"
             textColor="var(--color-white)"
@@ -205,7 +207,7 @@ export const Main: React.FC<MainProps> = ({ onNavigate }) => {
                 title={product.title}
                 subtitle={product.subtitle}
                 icon={product.icon}
-                iconColor="white"
+                iconColor={product.iconColor}
                 iconBackgroundColor="var(--color-green-primary)"
                 titleVariant="BoldM"
                 subtitleVariant="regularS"
@@ -224,7 +226,7 @@ export const Main: React.FC<MainProps> = ({ onNavigate }) => {
       {/* Bottom Menu */}
       <Menu
         items={menuItems}
-        avatarSrc="https://i.pravatar.cc/32?img=7"
+        avatarSrc="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=64&h=64&fit=crop&crop=entropy&q=80"
         avatarAlt="Профиль"
       />
     </div>

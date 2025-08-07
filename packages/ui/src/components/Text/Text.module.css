@@ -38,6 +38,24 @@
   line-height: var(--line-height-normal);
 }
 
+.currency {
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-4xl);
+  line-height: var(--line-height-tight);
+}
+
+.currency .currencyFraction {
+  font-size: inherit;
+  font-weight: inherit;
+  color: var(--color-text-secondary);
+}
+
+.currency .currencySymbol {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
 /* Color classes */
 .colorPrimary {
   color: var(--color-text-primary); /* Тёмно-серый, основной цвет текста */
@@ -49,22 +67,6 @@
 
 .colorGrey {
   color: var(--color-grey); /* Серый цвет текста */
-}
-
-.colorSuccess {
-  color: var(--color-success); /* Зелёный, успех */
-}
-
-.colorError {
-  color: var(--color-error); /* Красный, ошибка */
-}
-
-.colorWarning {
-  color: var(--color-warning); /* Жёлтый, предупреждение */
-}
-
-.colorInfo {
-  color: var(--color-info); /* Синий, информация */
 }
 
 .colorWhite {

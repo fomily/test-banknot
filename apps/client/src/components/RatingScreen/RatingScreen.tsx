@@ -18,17 +18,17 @@ export const RatingScreen: React.FC<RatingScreenProps> = ({ onNavigate }) => {
   // Данные для нижнего меню
   const menuItems: MenuItemProps[] = React.useMemo(() => [
     {
-      icon: 'home',
+      icon: 'menuHome',
       children: 'главная',
       onClick: () => onNavigate('main')
     },
     {
-      icon: 'chart',
+      icon: 'menuProducts',
       children: 'продукты',
       onClick: () => onNavigate('products')
     },
     {
-      icon: 'trending-up',
+      icon: 'menuRating',
       children: 'рейтинг',
       isActive: true,
       onClick: () => onNavigate('rating')
