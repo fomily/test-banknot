@@ -63,7 +63,7 @@ export const Main: React.FC<MainProps> = ({ onNavigate }) => {
         {/* Невидимый placeholder для компонента Rating чтобы высота header была как на странице рейтинга */}
         <div className={styles.ratingPlaceholder} />
 
-        <div className={styles.balanceSection}>
+        <div className={styles.balanceSection} onClick={() => onNavigate('wallet')}>
           <Text variant="currency" color="white" currencyValue="60 000,34">
           </Text>
         </div>

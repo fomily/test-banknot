@@ -1,18 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Main } from './components/Main';
 import { Products } from './components/Products';
 import { RatingScreen } from './components/RatingScreen';
 import { ProfileScreen } from './components/ProfileScreen';
 import { Layout } from './components/Layout';
+import { WalletScreen } from './components/WalletScreen';
 import '@packages/ui/styles';
 
-type Screen = 'main' | 'products' | 'rating' | 'profile';
+type Screen = 'main' | 'products' | 'rating' | 'profile' | 'wallet';
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('main');
+  const historyRef = useRef<Screen[]>(['main']);
 
   const handleNavigate = React.useCallback((screen: string) => {
-    setCurrentScreen(screen as Screen);
+    if (screen === 'back') {
+      if (historyRef.current.length > 1) {
+        const nextHistory = historyRef.current.slice(0, -1);
+        const prev = nextHistory[nextHistory.length - 1];
+        historyRef.current = nextHistory;
+        setCurrentScreen(prev);
+      }
+      return;
+    }
+    const s = screen as Screen;
+    setCurrentScreen(s);
+    historyRef.current = [...historyRef.current, s];
+  }, []);
+
+  const handleGoBack = React.useCallback(() => {
+    if (historyRef.current.length > 1) {
+      const nextHistory = historyRef.current.slice(0, -1);
+      const prev = nextHistory[nextHistory.length - 1];
+      historyRef.current = nextHistory;
+      setCurrentScreen(prev);
+    }
   }, []);
 
   // Сброс скролла при изменении экрана
@@ -50,6 +72,8 @@ function App() {
         return <RatingScreen onNavigate={handleNavigate} />;
       case 'profile':
         return <ProfileScreen onNavigate={handleNavigate} />;
+      case 'wallet':
+        return <WalletScreen onNavigate={handleNavigate} />;
       default:
         return <Main onNavigate={handleNavigate} />;
     }

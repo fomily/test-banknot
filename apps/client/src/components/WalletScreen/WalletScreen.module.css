@@ -1,0 +1,122 @@
+.walletScreen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  background: var(--color-background-primary);
+}
+
+.header {
+  background: var(--color-background-primary);
+  padding: 1.5rem 1rem 1rem;
+  position: relative;
+}
+
+.topRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-grey-dark);
+  border: none;
+  position: absolute;
+  top: 1.5rem;
+  left: 1rem;
+}
+
+.backIcon {
+  color: var(--color-white);
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* balanceSection removed: balance is inside topRow */
+
+.actionButtons {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.content {
+  flex: 1;
+  padding: 1.5rem 1rem 6rem;
+  overflow-y: auto;
+  border-radius: 2rem 2rem 0 0;
+  background: var(--color-background-secondary);
+}
+
+.monthGroup {
+  margin-bottom: 1.25rem;
+}
+
+.monthTitle {
+  margin-bottom: 0.75rem;
+}
+
+.transactionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.transactionRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  background: var(--color-white);
+}
+
+.transactionLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-green-light);
+  flex-shrink: 0;
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--color-green-dark);
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+/* title and subtitle inherit from Text component styles */
+
+.amountNegative {
+  color: var(--color-text-primary);
+}
+
+.amountPositive {
+  color: var(--color-success);
+}
+
