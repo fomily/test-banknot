@@ -63,7 +63,7 @@ export const RatingScreen: React.FC<RatingScreenProps> = ({ onNavigate }) => {
 
         <div className={styles.ratingScale}>
           <Rating
-            level={3}
+            level={4}
             className={styles.rating}
           />
         </div>

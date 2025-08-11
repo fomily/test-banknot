@@ -8,7 +8,7 @@
   display: flex;
   gap: 0.25rem;
   width: 100%;
-  max-width: 12rem;
+  max-width: 600px;
   margin-top: 0.5rem;
 }
 
@@ -19,25 +19,11 @@
   transition: all 0.2s ease;
 }
 
-.segment:nth-child(1) {
-  background: var(--color-rating-bad); /* красный */
-}
-
-.segment:nth-child(2) {
-  background: var(--color-rating-below-average); /* оранжевый */
-}
-
-.segment:nth-child(3) {
-  background: var(--color-rating-average); /* желтый */
-}
-
-.segment:nth-child(4) {
-  background: var(--color-rating-good); /* зеленый */
-}
-
-.segment:nth-child(5) {
-  background: var(--color-rating-excellent); /* изумрудный */
-}
+.segment:nth-child(1) { background: var(--color-rating-bad); }
+.segment:nth-child(2) { background: var(--color-rating-below-average); }
+.segment:nth-child(3) { background: var(--color-rating-average); }
+.segment:nth-child(4) { background: var(--color-green-primary); }
+.segment:nth-child(5) { background: var(--color-rating-excellent); }
 
 .segment.inactive {
   background: rgba(255, 255, 255, 0.2);

@@ -26,9 +26,9 @@
   --color-info: #3B82F6; /* Синий, информация */
 
   /* Цвета рейтинга */
-  --color-rating-bad: #ef4444; /* Красный, плохой рейтинг */
-  --color-rating-below-average: #f97316; /* Оранжевый, ниже среднего */
-  --color-rating-average: #eab308; /* Желтый, средний рейтинг */
-  --color-rating-good: #22c55e; /* Зеленый, хороший рейтинг */
+  --color-rating-bad: #FF9580; /* Красный/лосось, плохой рейтинг */
+  --color-rating-below-average: #EAB271; /* Оранжевый, ниже среднего */
+  --color-rating-average: #D1D460; /* Желтый, средний рейтинг */
+  --color-rating-good: var(--color-green-primary); /* Зеленый, хороший рейтинг (основной) */
   --color-rating-excellent: #10b981; /* Изумрудный, отличный рейтинг */
 }
