@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Minimal draft for step 0 seed
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  firstName    String
+  lastName     String
+  middleName   String?
+  ratingLevel  Int      @default(3)
+  isAdmin      Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  wallet       Wallet?
+  transactions Transaction[]
+  userProducts UserProducts[]
+}
+
+model Wallet {
+  id        String  @id @default(cuid())
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String  @unique
+  balance   Int     @default(0)
+}
+
+model Product {
+  id             String  @id @default(cuid())
+  code           String  @unique
+  title          String
+  subtitle       String
+  icon           String
+  iconColor      String
+  iconBg         String
+  category       String
+  allowedRatings Int[]
+  isActive       Boolean @default(true)
+  userProducts   UserProducts[]
+}
+
+model Transaction {
+  id              String   @id @default(cuid())
+  user            User     @relation(fields: [userId], references: [id])
+  userId          String
+  direction       String
+  amountMinor     Int
+  currency        String   @default("RUB")
+  category        String
+  counterpartyName String?
+  source          String   @default("admin")
+  status          String   @default("posted")
+  createdAt       DateTime @default(now())
+  postedAt        DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model UserProducts {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+  status    String   @default("active")
+  openedAt  DateTime @default(now())
+  initialDeposit Int @default(0)
+}
+
