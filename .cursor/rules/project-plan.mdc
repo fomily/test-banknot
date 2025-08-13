@@ -151,24 +151,24 @@
 
 0) Подготовка демо-окружения и локальной БД
    - Репозиторий и ветки
-   - GitHub Actions: простой `ci.yml` на `push: main` и `pull_request` — `setup-node` с кешем → `npm ci` → `build` всех workspaces. Без тестов и без БД в CI. Demo Deploy по тегам `demo-*` не трогаем.
+    - GitHub Actions: простой `ci.yml` на `push: main` и `pull_request` — `setup-node` с кешем → `npm ci` → `build` всех workspaces. Без тестов и без БД в CI. Demo Deploy по тегам `demo-*` не трогаем. — сделано
    - Публикация: клиентское демо публикуется по тегам `demo-*` (GitHub Pages, уже настроено). Публичный сервер (VPS) настроим позже (после шага 3).
    - Секреты/vars репозитория: `JWT_SECRET`, `COOKIE_DOMAIN`, `NODE_ENV`. Для CI `DATABASE_URL` не требуется.
-   - Шаблоны окружения: `.env.example` в корне и для `apps/server` (включая `DATABASE_URL`, `JWT_SECRET`, `PORT`, `COOKIE_DOMAIN=localhost`, `NODE_ENV`). Реальные `.env` не коммитим.
-   - Docker Compose (локально): `postgres:16` + `adminer` (порт 8080), именованный volume для данных, публикация порта 5432.
-   - Скрипты npm: `db:up` (docker compose up -d), `db:down`, `db:reset`, `db:migrate`, `db:seed`, `dev:server`, `dev:client`, `dev:admin`.
-   - Prisma (расположение `apps/server/prisma`): инициализация `schema.prisma`, `prisma migrate dev`, `prisma generate`, `prisma db seed`.
-   - Seed (идемпотентно): создать админа `admin@example.com` и пользователя `user@example.com` с фиксированными dev-паролями; продукты из демо; матрицу `allowedRatings`; кошельки с балансом 0 ₽; 2–3 транзакции.
-   - Проверка: контейнер Postgres запущен; миграции/сиды проходят; сервер поднимается; `/health` → 200; `/docs` открывается (плейсхолдер Swagger).
+    - Шаблоны окружения: `.env.example` в корне и для `apps/server` (включая `DATABASE_URL`, `JWT_SECRET`, `PORT`, `COOKIE_DOMAIN=localhost`, `NODE_ENV`). Реальные `.env` не коммитим.
+    - Docker Compose (локально): `postgres:16` + `adminer` (порт 8080), именованный volume для данных, публикация порта 5432. — сделано
+    - Скрипты npm: `db:up` (docker compose up -d), `db:down`, `db:reset`, `db:migrate`, `db:seed`, `dev:server`, `dev:client`, `dev:admin`. — сделано
+    - Prisma (расположение `apps/server/prisma`): инициализация `schema.prisma`, `prisma migrate dev`, `prisma generate`, `prisma db seed`. — сделано
+    - Seed (идемпотентно): создать админа `admin@example.com` и пользователя `user@example.com` с фиксированными dev-паролями; продукты из демо; матрицу `allowedRatings`; кошельки с балансом 0 ₽; 2–3 транзакции. — сделано
+    - Проверка: контейнер Postgres запущен; миграции/сиды проходят; сервер поднимается; `/health` → 200; `/docs` открывается (плейсхолдер Swagger). — сделано
 
 1) Инфраструктура
-   - Настроить PostgreSQL, Prisma (`schema.prisma`, `.env`).
-   - Скелет `apps/server`: Express, CORS, cookies, JSON, helmet, rate-limit, error middleware, health-check.
-   - Пакеты `@core` (сущности, интерфейсы репозиториев, use-cases, DI `tsyringe`) и `@api` (DTO, клиенты, типы).
+   - Настроить PostgreSQL, Prisma (`schema.prisma`, `.env`). — перенесено в шаг 0 (готово)
+   - Скелет `apps/server`: Express, CORS, cookies, JSON, helmet, rate-limit, error middleware, health-check. — сделано (dotenv, trust proxy, CORS whitelist с credentials, cookie-parser, prod-only rate-limit, 404 + error-handler, `/health`)
+   - Пакеты `@core` (сущности, интерфейсы репозиториев, use-cases, DI `tsyringe`) и `@api` (DTO, клиенты, типы). — сделано (`@core`: DI на tsyringe без декораторов; `@api`: каркас + HttpClient с credentials)
 
 2) Модели и миграции (Prisma)
-   - Описать модели: `User`, `Wallet`, `Transaction`, `Product`, `UserProducts`.
-   - Миграции и сиды: продукты из текущей верстки, `allowedRatings`, админ-пользователь, тест-пользователь, кошельки, несколько транзакций.
+   - Описать модели: `User`, `Wallet`, `Transaction`, `Product`, `UserProducts`. — сделано
+   - Миграции и сиды: продукты из текущей верстки, `allowedRatings`, админ-пользователь, тест-пользователь, кошельки, несколько транзакций. — сделано
 
 3) Аутентификация (JWT)
    - Use-cases: `RegisterUser`, `LoginUser`, `RefreshToken`, `LogoutUser`.
