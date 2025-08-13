@@ -49,6 +49,10 @@ export interface ProductCardProps extends Omit<CardProps, 'children'> {
    * Обработчик клика по карточке
    */
   onClick?: () => void;
+  /**
+   * Правый контент (напр. сумма), выравнивается по правому краю
+   */
+  rightContent?: React.ReactNode;
 }
 
 
@@ -64,6 +68,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   iconBackgroundColor = 'var(--color-grey-light)',
   onClick,
   className,
+  rightContent,
   ...cardProps
 }) => {
   const contentClasses = [
@@ -78,7 +83,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       onClick={onClick}
       {...cardProps}
     >
-            {icon && (
+      {icon && (
         <div
           className={styles.iconContainer}
           style={{ backgroundColor: iconBackgroundColor }}
@@ -110,6 +115,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </Text>
         )}
       </div>
+
+      {rightContent && (
+        <div className={styles.rightContainer}>
+          {rightContent}
+        </div>
+      )}
     </Card>
   );
 };

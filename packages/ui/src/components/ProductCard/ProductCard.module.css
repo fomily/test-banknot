@@ -52,6 +52,12 @@
   margin: 0;
 }
 
+/* Правый контейнер (например, сумма) */
+.rightContainer {
+  margin-left: auto;
+  text-align: right;
+}
+
 
 
 /* Адаптивность для маленьких экранов */

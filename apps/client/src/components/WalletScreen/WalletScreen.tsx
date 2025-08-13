@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, IconButton, Icon } from '@packages/ui';
+import { Text, IconButton, ProductCard, Icon } from '@packages/ui';
 import styles from './WalletScreen.module.css';
 
 export interface WalletScreenProps {
@@ -94,28 +94,24 @@ export const WalletScreen: React.FC<WalletScreenProps> = ({ onNavigate }) => {
 
             <div className={styles.transactionsList}>
               {group.items.map((item) => (
-                <div key={item.id} className={styles.transactionRow}>
-                  <div className={styles.transactionLeft}>
-                    <div className={styles.iconContainer}>
-                      <Icon name="card" className={styles.icon} />
-                    </div>
-                    <div className={styles.textContainer}>
-                      <Text variant="regularM" color="primary" className={styles.title}>
-                        {item.toName ? item.toName : item.fromName ? item.fromName : item.merchant}
-                      </Text>
-                      <Text variant="regularS" color="secondary" className={styles.subtitle}>
-                        {(item.toName || item.fromName) ? 'перевод' : item.category}
-                      </Text>
-                    </div>
-                  </div>
-
-                  <Text
-                    variant="regularM"
-                    className={item.amount < 0 ? styles.amountNegative : styles.amountPositive}
-                  >
-                    {formatAmount(item.amount)}
-                  </Text>
-                </div>
+                <ProductCard
+                  key={item.id}
+                  icon="card"
+                  iconBackgroundColor="var(--color-green-light)"
+                  iconColor="var(--color-green-dark)"
+                  title={item.toName ? item.toName : item.fromName ? item.fromName : item.merchant}
+                  subtitle={(item.toName || item.fromName) ? 'перевод' : item.category}
+                  titleVariant="regularM"
+                  subtitleVariant="regularS"
+                  rightContent={
+                    <Text
+                      variant="regularM"
+                      className={item.amount < 0 ? styles.amountNegative : styles.amountPositive}
+                    >
+                      {formatAmount(item.amount)}
+                    </Text>
+                  }
+                />
               ))}
             </div>
           </div>
