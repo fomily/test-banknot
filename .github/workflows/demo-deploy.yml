@@ -1,0 +1,57 @@
+name: Demo Deploy (GitHub Pages via gh-pages)
+
+on:
+  push:
+    tags:
+      - 'demo-*'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: demo-deploy-gh-pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: |
+            package-lock.json
+            apps/client/package.json
+            packages/ui/package.json
+            packages/core/package.json
+            packages/api/package.json
+
+      - name: Install dependencies (workspace root)
+        run: npm ci
+
+      - name: Build client in DEMO mode
+        env:
+          NODE_ENV: production
+          APP_ENV: demo
+        run: npm run -w @apps/client build
+
+      - name: Prepare SPA fallback and nojekyll
+        run: |
+          cp apps/client/dist/index.html apps/client/dist/404.html
+          touch apps/client/dist/.nojekyll
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: apps/client/dist
+          force_orphan: true
+

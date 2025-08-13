@@ -53,7 +53,7 @@
 - Доступность продуктов: в `Product` поле `allowedRatings: number[]`.
 - `avatarUrl` из модели и API убираем; UI уже имеет дефолтный placeholder.
 - «Избранное»: не реализуем на этом этапе (блок на главном не показываем).
-- Транзакции из админки — полноценные переводы; отображаются как обычные. Поля: `direction, amount, category, counterpartyName?`.
+- Транзакции из админки — полноценные переводы; отображаются как обычные. Поля: `direction, amountMinor, currency?, category, counterpartyName?, idempotencyKey?`.
 - Категории транзакций: временно фиксированный список (например: transfer, topup, taxi, food, education, transport, shopping, entertainment, other). В будущем — маппинг банковских кодов.
 - Продукты API: `GET /products` отдаёт все продукты для пользователя с флагом `isEnabled`; на фронте недоступные — disabled (как «Ипотека» сейчас).
 - Документация API: OpenAPI 3.1, генерация из `zod` (`zod-to-openapi`), Swagger UI на `/docs` (опционально Redoc).
@@ -91,12 +91,14 @@
 - **Транзакции**: из админки можно создавать «настоящие» переводы — они отображаются как обычные у пользователя. Также поддерживаем stub-операции (на будущее — внешние провайдеры).
 - **Категории транзакций**: временно фиксированный список (например: transfer, topup, taxi, food, education, transport, shopping, entertainment, other). Дальше — маппинг банковских кодов → категорий.
 - **Документация API**: OpenAPI 3.1, генерация из `zod`-схем (`zod-to-openapi`), Swagger UI на `/docs` (опционально Redoc).
+ - **Суммы**: везде используем минорные единицы с валютой (`amountMinor: number`, `currency`, по умолчанию `RUB`).
+ - **Админские транзакции (дефолты сервера)**: при создании сервер устанавливает `status=posted`, `postedAt=now`; если `currency` не указана — используется `RUB`.
 
 ### Доменные сущности (ядро `@core`)
 
 - **User**: `id`, `email`, `passwordHash`, `name{ lastName, firstName, middleName }`, `ratingLevel: 1|2|3|4|5` (начально 3 — «средний»), `isAdmin`, `createdAt`, `updatedAt`.
 - **Wallet**: `id`, `userId`, `balance` (копейки/число — уточнить формат хранения; по умолчанию целые в минорных единицах).
-- **Transaction**: `id`, `userId`, `direction: debit|credit`, `amount`, `category` (фиксированный список), `counterpartyName?`, `source: internal|admin|stub`, `createdAt`.
+ - **Transaction**: `id`, `userId`, `direction: debit|credit`, `amountMinor: number`, `currency: 'RUB'|...`, `category` (фиксированный список), `counterpartyName?`, `source: internal|admin|stub`, `status: posted|pending|failed|canceled`, `createdAt`, `postedAt`, `updatedAt`, `metadata?`, `transferGroupId?`, `idempotencyKey?`.
 - **Product**: `id`, `code` (например, `SAVINGS`), `title`, `subtitle`, `icon`, `iconColor`, `iconBg`, `category: saving|credit`, `allowedRatings: number[]`, `isActive`.
 - **UserProducts**: `id`, `userId`, `productId`, `status: active|closed`, `openedAt`, `initialDeposit`.
 
@@ -129,7 +131,7 @@
   - `POST /products/open` { code: "SAVINGS", initialDeposit }
 - Admin
   - Users: `GET /admin/users`, `POST /admin/users`, `PATCH /admin/users/:id`, `PATCH /admin/users/:id/rating`
-  - Transactions: `GET /admin/users/:id/transactions`, `POST /admin/users/:id/transactions` { direction, amount, category, counterpartyName? }
+  - Transactions: `GET /admin/users/:id/transactions`, `POST /admin/users/:id/transactions` { direction, amountMinor, currency?, category, counterpartyName?, idempotencyKey? }
   - Products: `GET /admin/products`, `PATCH /admin/products/:id`, `PATCH /admin/products/:id/access` (правка `allowedRatings`)
 
 ### Документация API
@@ -148,7 +150,7 @@
 ### Шаги реализации
 
 0) Подготовка демо-окружения и локальной БД
-   - Репозиторий и ветки: настроить защищённую `main`, завести `develop`.
+   - Репозиторий и ветки
    - GitHub Actions: создать `ci.yml` (установка, кеш, линт, билд, тесты для всех workspaces). Поднять сервис PostgreSQL для CI при необходимости.
    - Секреты/vars репозитория: `JWT_SECRET`, `COOKIE_DOMAIN`, `NODE_ENV`, (для CI) `DATABASE_URL` или параметры PostgreSQL сервиса.
    - Шаблоны окружения: `.env.example` в корне и для `apps/server` (включая `DATABASE_URL`, `JWT_SECRET`, `PORT`, `COOKIE_DOMAIN`).
