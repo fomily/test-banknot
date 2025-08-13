@@ -34,7 +34,7 @@ jobs:
             packages/api/package.json
 
       - name: Install dependencies (workspace root)
-        run: npm ci
+        run: npm install --workspaces
 
       - name: Build client in DEMO mode
         env:
