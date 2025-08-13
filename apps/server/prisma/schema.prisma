@@ -7,7 +7,41 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Minimal draft for step 0 seed
+enum TransactionDirection {
+  debit
+  credit
+}
+
+enum TransactionStatus {
+  posted
+  pending
+  failed
+  canceled
+}
+
+enum TransactionCategory {
+  transfer
+  topup
+  taxi
+  food
+  education
+  transport
+  shopping
+  entertainment
+  other
+}
+
+enum TransactionSource {
+  internal
+  admin
+  stub
+}
+
+enum ProductCategory {
+  saving
+  credit
+}
+
 model User {
   id           String   @id @default(cuid())
   email        String   @unique
@@ -26,7 +60,7 @@ model User {
 
 model Wallet {
   id        String  @id @default(cuid())
-  user      User    @relation(fields: [userId], references: [id])
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String  @unique
   balance   Int     @default(0)
 }
@@ -39,7 +73,7 @@ model Product {
   icon           String
   iconColor      String
   iconBg         String
-  category       String
+  category       ProductCategory
   allowedRatings Int[]
   isActive       Boolean @default(true)
   userProducts   UserProducts[]
@@ -47,28 +81,33 @@ model Product {
 
 model Transaction {
   id              String   @id @default(cuid())
-  user            User     @relation(fields: [userId], references: [id])
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId          String
-  direction       String
+  direction       TransactionDirection
   amountMinor     Int
   currency        String   @default("RUB")
-  category        String
+  category        TransactionCategory
   counterpartyName String?
-  source          String   @default("admin")
-  status          String   @default("posted")
+  source          TransactionSource @default(admin)
+  status          TransactionStatus @default(posted)
   createdAt       DateTime @default(now())
   postedAt        DateTime @default(now())
   updatedAt       DateTime @updatedAt
+
+  @@index([userId, createdAt])
 }
 
 model UserProducts {
   id        String   @id @default(cuid())
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
-  product   Product  @relation(fields: [productId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String
   status    String   @default("active")
   openedAt  DateTime @default(now())
   initialDeposit Int @default(0)
+
+  @@unique([userId, productId])
+  @@index([userId, status])
 }
 

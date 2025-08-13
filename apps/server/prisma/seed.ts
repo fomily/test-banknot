@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, Prisma, ProductCategory, TransactionDirection, TransactionCategory } from '@prisma/client'
 const prisma = new PrismaClient()
 
 async function main() {
@@ -46,8 +46,11 @@ async function main() {
 
   // Products (sample from demo)
   const demoProducts = [
-    { code: 'SAVINGS', title: 'Накопительный счёт', subtitle: 'Копите с процентами', icon: 'savings', iconColor: '#0ea5e9', iconBg: '#e0f2fe', category: 'saving', allowedRatings: [1,2,3,4,5] },
-    { code: 'MORTGAGE', title: 'Ипотека', subtitle: 'Доступна при рейтинге 4+', icon: 'mortgage', iconColor: '#f59e0b', iconBg: '#fffbeb', category: 'credit', allowedRatings: [4,5] },
+    { code: 'OVERDRAFT', title: 'Подключить овердрафт', subtitle: 'Для непредвиденных трат', icon: 'overdraft', iconColor: '#166534', iconBg: '#dcfce7', category: ProductCategory.credit, allowedRatings: [3,4,5] },
+    { code: 'CONSUMER_CREDIT', title: 'Потребительский кредит', subtitle: 'До 5 млн рублей на любые цели', icon: 'card', iconColor: '#166534', iconBg: '#dcfce7', category: ProductCategory.credit, allowedRatings: [3,4,5] },
+    { code: 'MORTGAGE', title: 'Ипотека', subtitle: 'Чтобы открыть ипотеку необходимо повысить рейтинг', icon: 'lock', iconColor: '#6b7280', iconBg: '#e5e7eb', category: ProductCategory.credit, allowedRatings: [4,5] },
+    { code: 'DEPOSIT', title: 'Открыть вклад', subtitle: 'От 18% годовых', icon: 'plus', iconColor: '#166534', iconBg: '#dcfce7', category: ProductCategory.saving, allowedRatings: [1,2,3,4,5] },
+    { code: 'SAVINGS', title: 'Накопительный счёт', subtitle: 'До 14% годовых с возможностью снятия', icon: 'percent', iconColor: '#166534', iconBg: '#dcfce7', category: ProductCategory.saving, allowedRatings: [1,2,3,4,5] },
   ]
 
   for (const p of demoProducts) {
@@ -63,8 +66,8 @@ async function main() {
   if (!existingTx) {
     await prisma.transaction.createMany({
       data: [
-        { userId: user.id, direction: 'credit', amountMinor: 150000, category: 'topup', counterpartyName: 'Admin top-up' },
-        { userId: user.id, direction: 'debit', amountMinor: 25000, category: 'food', counterpartyName: 'Cafe' },
+        { userId: user.id, direction: TransactionDirection.credit, amountMinor: 150000, category: TransactionCategory.topup, counterpartyName: 'Admin top-up' },
+        { userId: user.id, direction: TransactionDirection.debit, amountMinor: 25000, category: TransactionCategory.food, counterpartyName: 'Cafe' },
       ],
       skipDuplicates: true,
     })

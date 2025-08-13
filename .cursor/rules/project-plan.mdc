@@ -84,7 +84,7 @@
   - Refresh-токен в HttpOnly+Secure cookie, SameSite=Lax (или None при необходимости); access-токен — в памяти (in-memory) клиента.
   - В случае ограничений cookie в контейнере WebView — fallback: хранение refresh в нативном Secure Storage и обмен через bridge.
 - **Доступность продуктов**: в `Product` поле `allowedRatings: number[]` (1–5). Таблица `ProductAvailability` не нужна.
-- **Сущности**: `UserProducts` (переименование с `UserProduct`). Убираем `avatarUrl`. Не создаём сущность `Favorite`.
+- **Сущности**: `UserProducts` (переименование с `UserProduct`). Убираем `avatarUrl`. Не создаём сущность `Favorite`. ФИО храним в отдельных полях пользователя: `lastName`, `firstName`, `middleName?`.
 - **Главный экран**: рейтинг-бейдж и баланс — с бэкенда (не локально). «Быстрые действия» под балансом остаются захардкоженными.
 - **Профиль**: добавить пункт «Выйти» (logout).
 - **Продукты (экран)**: метод `GET /products` отдаёт все продукты для пользователя с флагом `isEnabled`. Недоступные отображаются как disabled (как сейчас «Ипотека» — серая иконка/карточка).
@@ -93,13 +93,21 @@
 - **Документация API**: OpenAPI 3.1, генерация из `zod`-схем (`zod-to-openapi`), Swagger UI на `/docs` (опционально Redoc).
  - **Суммы**: везде используем минорные единицы с валютой (`amountMinor: number`, `currency`, по умолчанию `RUB`).
  - **Админские транзакции (дефолты сервера)**: при создании сервер устанавливает `status=posted`, `postedAt=now`; если `currency` не указана — используется `RUB`.
+ - **Enum-ы**: используем строгие перечисления на уровне Prisma/схем для `Transaction.direction (debit|credit)`, `Transaction.status (posted|pending|failed|canceled)`, `Transaction.category (transfer|topup|taxi|food|education|transport|shopping|entertainment|other)`, `Transaction.source (internal|admin|stub)`, а также для `Product.category (saving|credit)`.
+ - **`allowedRatings` пояснение**: массив целых значений от 1 до 5, определяющий уровни рейтинга, при которых продукт доступен. На эндпоинте `GET /products` сервер вычисляет `isEnabled = allowedRatings.includes(user.ratingLevel)`. Рекомендуем не допускать `NULL` и хранить непустой массив (для неограниченного доступа — `[1,2,3,4,5]`).
+ - **Индексы и уникальность**: добавляем составной уникальный индекс `UserProducts(userId, productId)` для предотвращения повторного открытия одного и того же продукта, а также индекс `Transaction(userId, createdAt)` для быстрой пагинации ленты. При необходимости — индекс `UserProducts(userId, status)` для выборки активных продуктов.
+ - **Удаление/ссылочная целостность**: поддерживаем каскадное удаление там, где это необходимо по бизнес-требованию:
+   - При удалении `User` каскадно удаляются связанные `Wallet`, `UserProducts`, `Transaction`.
+   - При удалении `Product` каскадно удаляются связанные `UserProducts`.
+   - Для сущностей, где удаление нежелательно, используем флаг `isActive` (мягкое выключение) вместо физического удаления.
+ - **Валюта**: на текущем этапе поддерживаем только `RUB`.
 
 ### Доменные сущности (ядро `@core`)
 
-- **User**: `id`, `email`, `passwordHash`, `name{ lastName, firstName, middleName }`, `ratingLevel: 1|2|3|4|5` (начально 3 — «средний»), `isAdmin`, `createdAt`, `updatedAt`.
+- **User**: `id`, `email`, `passwordHash`, `lastName`, `firstName`, `middleName?`, `ratingLevel: 1|2|3|4|5` (начально 3 — «средний»), `isAdmin`, `createdAt`, `updatedAt`.
 - **Wallet**: `id`, `userId`, `balance` (копейки/число — уточнить формат хранения; по умолчанию целые в минорных единицах).
- - **Transaction**: `id`, `userId`, `direction: debit|credit`, `amountMinor: number`, `currency: 'RUB'|...`, `category` (фиксированный список), `counterpartyName?`, `source: internal|admin|stub`, `status: posted|pending|failed|canceled`, `createdAt`, `postedAt`, `updatedAt`, `metadata?`, `transferGroupId?`, `idempotencyKey?`.
-- **Product**: `id`, `code` (например, `SAVINGS`), `title`, `subtitle`, `icon`, `iconColor`, `iconBg`, `category: saving|credit`, `allowedRatings: number[]`, `isActive`.
+- **Transaction**: `id`, `userId`, `direction: debit|credit (enum)`, `amountMinor: number`, `currency: 'RUB'`, `category (enum)`, `counterpartyName?`, `source: internal|admin|stub (enum)`, `status: posted|pending|failed|canceled (enum)`, `createdAt`, `postedAt`, `updatedAt`, `metadata?`, `transferGroupId?`, `idempotencyKey?`.
+- **Product**: `id`, `code` (например, `SAVINGS`), `title`, `subtitle`, `icon`, `iconColor`, `iconBg`, `category: saving|credit (enum)`, `allowedRatings: number[]` (значения от 1 до 5; см. пояснение выше), `isActive`.
 - **UserProducts**: `id`, `userId`, `productId`, `status: active|closed`, `openedAt`, `initialDeposit`.
 
 ### Основные пользовательские потоки
@@ -168,7 +176,10 @@
 
 2) Модели и миграции (Prisma)
    - Описать модели: `User`, `Wallet`, `Transaction`, `Product`, `UserProducts`. — сделано
-   - Миграции и сиды: продукты из текущей верстки, `allowedRatings`, админ-пользователь, тест-пользователь, кошельки, несколько транзакций. — сделано
+   - Зафиксировать enum'ы: `Transaction.direction`, `Transaction.status`, `Transaction.category`, `Transaction.source`, `Product.category`. — сделано
+   - Индексы и уникальность: `UserProducts(userId, productId)` — уникальный; `Transaction(userId, createdAt)` — индекс. — сделано
+   - Политика FK: включить каскадное удаление по описанным правилам. — сделано
+   - Миграции и сиды: полный набор продуктов из текущей верстки, `allowedRatings`, админ-пользователь, тест-пользователь, кошельки, несколько транзакций. — сделано
 
 3) Аутентификация (JWT)
    - Use-cases: `RegisterUser`, `LoginUser`, `RefreshToken`, `LogoutUser`.
@@ -237,7 +248,7 @@
 
 - Шаг 0: Postgres в Docker доступен; `prisma migrate dev` и `prisma db seed` проходят; сервер стартует; `/health` 200; `/docs` открывается.
 - Шаг 1: линтеры и сборка зелёные; health-check и базовые middlewares работают; CORS и cookies настроены.
-- Шаг 2: миграции применяются; таблицы `User`, `Wallet`, `Transaction`, `Product`, `UserProducts` созданы; seed заполняет продукты и `allowedRatings`.
+- Шаг 2: миграции применяются; таблицы `User`, `Wallet`, `Transaction`, `Product`, `UserProducts` созданы; enum'ы задействованы; уникальность `UserProducts(userId, productId)` соблюдается; индексы присутствуют; seed заполняет полный набор продуктов и `allowedRatings`.
 - Шаг 3: через curl/Postman `register`/`login` возвращают access; refresh-cookie ставится; `refresh` выдаёт новый access; `logout` очищает cookie.
 - Шаг 4: `GET /users/me` возвращает ФИО/рейтинг; `PATCH /users/me/profile` сохраняет ФИО; баланс из `/users/me/wallet` корректный.
 - Шаг 5: `GET /products` возвращает все продукты; у недоступных `isEnabled=false` согласно `allowedRatings`.
