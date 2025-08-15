@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "build": "vite build",
-    "dev": "vite",
+    "dev": "(lsof -tiTCP:5173 -sTCP:LISTEN -n -P | xargs -I {} kill {} || true) && vite --port 5173 --strictPort",
+    "preview:fixed": "vite preview --port 4173 --strictPort",
     "lint": "echo lint stub",
     "preview": "vite preview"
   },

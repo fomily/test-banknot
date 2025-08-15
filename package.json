@@ -9,6 +9,8 @@
     "dev": "echo \"Use dev scripts from apps manually\"",
     "build": "echo \"Use build scripts from apps manually\"",
     "lint": "eslint apps packages --ext .ts,.tsx",
+    "ports:check": "lsof -nP -iTCP -sTCP:LISTEN | cat",
+    "ports:free": "lsof -tiTCP:5173-5187,4000,4001 -sTCP:LISTEN -n -P | xargs -I {} kill {} || true",
     "db:up": "docker compose up -d",
     "db:down": "docker compose down",
     "db:reset": "docker compose down -v && docker compose up -d",
@@ -19,6 +21,7 @@
     "dev:admin": "npm run -w @apps/admin dev"
   },
   "devDependencies": {
+    "@playwright/test": "^1.54.2",
     "@types/node": "^24.1.0",
     "@typescript-eslint/eslint-plugin": "^8.38.0",
     "@typescript-eslint/parser": "^8.38.0",

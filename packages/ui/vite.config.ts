@@ -5,6 +5,14 @@ import { resolve } from 'path';
 export default defineConfig({
   root: './preview',
   plugins: [react()],
+  server: {
+    port: 5177,
+    strictPort: true,
+  },
+  preview: {
+    port: 5177,
+    strictPort: true,
+  },
   resolve: {
     alias: {
       '@ui': resolve(__dirname, './src'),

@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "echo build stub",
+    "build": "tsc -p tsconfig.json",
     "dev": "echo dev stub",
     "lint": "echo lint stub"
   },
-  "dependencies": {},
-  "devDependencies": {},
-  "main": "src/index.ts"
-} 
+  "dependencies": {
+    "zod": "^3.25.76"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts"
+}

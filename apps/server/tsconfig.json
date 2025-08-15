@@ -3,7 +3,15 @@
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
-    "module": "commonjs"
+    "module": "commonjs",
+    "baseUrl": "../../",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": false,
+    "typeRoots": ["../../node_modules/@types", "../../packages/core/dist"],
+    "paths": {
+      "@core/*": ["packages/core/dist/*"],
+      "@api/*": ["packages/api/dist/*"]
+    }
   },
   "include": ["src"]
-} 
+}

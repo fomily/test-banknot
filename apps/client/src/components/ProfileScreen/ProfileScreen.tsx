@@ -9,16 +9,19 @@ import styles from './ProfileScreen.module.css';
 
 interface ProfileScreenProps {
   onNavigate: (screen: string) => void;
+  displayName?: string;
+  email?: string;
+  avatarUrl?: string;
 }
 
-export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigate }) => {
+export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigate, displayName, email, avatarUrl }) => {
   // Данные пользователя - мемоизируем
   const userData = React.useMemo(() => ({
-    name: 'Иванова Полина Захаровна',
-    avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=96&h=96&fit=crop&crop=entropy&q=80',
+    name: displayName || email || 'Пользователь',
+    avatar: avatarUrl as string | undefined,
     rating: 'хороший',
     ratingColor: 'var(--color-green-primary)'
-  }), []);
+  }), [displayName, email, avatarUrl]);
 
   // Список действий профиля - мемоизируем
   const profileActions = React.useMemo(() => [

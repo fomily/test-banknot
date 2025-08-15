@@ -1,2 +1,2 @@
 export * from './dtos'
-export * from './client'
+export { HttpClient, apiClient } from './client'

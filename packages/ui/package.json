@@ -4,20 +4,20 @@
   "private": true,
   "scripts": {
     "build": "vite build",
-    "dev": "vite",
+    "dev": "(lsof -tiTCP:5177 -sTCP:LISTEN -n -P | xargs -I {} kill {} || true) && vite --port 5177 --strictPort",
     "lint": "echo lint stub"
   },
   "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "vite-plugin-svgr": "^4.2.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "@vitejs/plugin-react": "^4.7.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "typescript": "^5.0.0",
     "vite": "^4.0.0"
-  },
-  "devDependencies": {
-    "vite-plugin-svgr": "^4.2.0"
   },
   "main": "src/index.ts"
 }
