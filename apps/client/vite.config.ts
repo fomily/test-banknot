@@ -18,7 +18,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '@packages/ui': path.resolve(__dirname, '../../packages/ui/src'),
-      '@core': path.resolve(__dirname, '../../packages/core/src'),
       '@api': path.resolve(__dirname, '../../packages/api/src'),
     },
   },

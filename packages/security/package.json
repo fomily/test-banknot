@@ -1,5 +1,5 @@
 {
-  "name": "@packages/config",
+  "name": "@packages/security",
   "version": "1.0.0",
   "private": true,
   "main": "dist/index.js",
@@ -8,6 +8,8 @@
     "build": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "zod": "^3.23.8"
+    "bcryptjs": "^3.0.2",
+    "jsonwebtoken": "^9.0.2"
   }
 }
+

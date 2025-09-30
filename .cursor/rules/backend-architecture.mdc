@@ -1,0 +1,63 @@
+---
+alwaysApply: true
+---
+
+### Backend architecture (domain-based, simplified DI)
+
+- Монорепозиторий: npm workspaces.
+- Сервер: `apps/server` (Express)
+  - Домены: `apps/server/src/<domain>` (например, `auth`).
+  - Каждый домен — один компактный файл (или небольшое число файлов при росте), включающий:
+    - регистрацию роутов (`express.Router()`),
+    - локальные use-cases (группой в одном файле),
+    - работу с БД через Prisma (использовать `apps/server/src/prisma.ts`),
+    - вспомогательные хелперы (например, куки) локально внутри домена.
+  - Общие миддлвары и инфраструктура: `apps/server/src/app.ts` (helmet, CORS, cookies, JSON, rate-limit, `/health`, `/docs`), запуск — `apps/server/src/index.ts`.
+  - Prisma клиент: один singleton в `apps/server/src/prisma.ts`.
+
+### Разделение ответственности
+
+- Бизнес-логика — ТОЛЬКО в доменных файлах сервера.
+- UI-компоненты — ТОЛЬКО представление; без бизнес-логики.
+- Переиспользуемые тех. вещи — в `packages/*`.
+
+### Workspaces shared packages
+
+- `packages/config`:
+  - Загрузка/валидация ENV (zod): `loadEnv()`.
+  - CORS-конфигурация: `buildCorsOptions()`.
+- `packages/security`:
+  - Токены JWT: `JwtTokenService`.
+  - Хеширование паролей: `BcryptPasswordHasher`.
+
+### Правила DI и Clean Architecture
+
+- Clean Architecture (облегчённая):
+  - Разделение на слои и чистые use-cases сохраняем, но use-cases группируются в одном файле домена.
+  - DI — вручную (композиция зависимостей внутри домена), без контейнеров и декораторов.
+  - Контроллеры/роуты — только «wire up» к use-cases, без бизнес-логики.
+
+### Путь-алиасы
+
+- Разрешены: `@packages/ui`, `@api` (и при необходимости `@packages/config`, `@packages/security`).
+- Запрещено: `@core` (пакет удалён).
+
+### ENV и конфигурация
+
+- Единый корневой `.env` для всего проекта.
+- Ключевые переменные: `PORT`, `JWT_SECRET`, `ACCESS_TOKEN_TTL`, `REFRESH_TOKEN_TTL`, `CORS_ORIGINS`, `COOKIE_*`, `NODE_ENV`.
+
+### Куки и токены (WebView)
+
+- Refresh — HttpOnly+Secure cookie (SameSite=Lax/None),
+- Access — в памяти клиента.
+- Эндпоинты auth: `/auth/register`, `/auth/login`, `/auth/refresh`, `/auth/logout`.
+
+### Ошибки и безопасность
+
+- Helmet, rate limit (prod), централизованный error-handler.
+- Ответы об ошибках — единый формат JSON.
+
+### Документация
+
+- OpenAPI (из zod) и Swagger UI на `/docs` (плейсхолдер).

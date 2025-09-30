@@ -64,17 +64,18 @@
 - Пакеты и директории:
   - `apps/client` — клиентское приложение (React/Vite). Компоненты UI — без бизнес-логики.
   - `apps/admin` — админка (React/Vite), авторизация по роли admin.
-  - `apps/server` — сервер (Express). Контроллеры без бизнес-логики (делегируют use-cases).
-  - `packages/core` — бизнес-логика (use-cases, entities, services). DI через `tsyringe`.
+  - `apps/server` — сервер (Express). Бизнес-логика внутри доменных папок `apps/server/src/<domain>`.
   - `packages/api` — DTO, типы и typed-клиенты к API.
   - `packages/ui` — UI-компоненты (без логики), CSS Modules, готовые иконки и компоненты (`Text`, `Avatar`, `ProductCard`, `Rating`, ...).
-- Clean Architecture: один use-case = один файл; зависимости внедряются через контейнер; UI и маршрутные обработчики — только «wire up».
-- Путь-алиасы: `@core`, `@api`, `@ui`.
+- Clean Architecture (облегчённая):
+  - use-cases группируются в одном файле домена; UI/роуты — только «wire up».
+  - DI — ручная композиция зависимостей внутри доменов (без контейнеров и декораторов).
+- Путь-алиасы: `@api`, `@packages/ui` (и при необходимости `@packages/config`, `@packages/security`).
 - WebView/Responsive: использовать flex/grid/gap, `rem/%` для размеров; избегать `position: absolute`, `:hover`, `:focus-visible`.
 
 ### Контекст и цели
 
-- **Цель**: Подключить бэкенд и БД к текущему проекту, реализовать регистрацию/авторизацию, профиль, кошелёк, продукты с зависимостью от рейтинга, транзакции и админку. Соблюдать текущую архитектуру: Clean Architecture, DI `tsyringe`, разделение на `@core`, `@api`, UI без бизнес-логики.
+- **Цель**: Подключить бэкенд и БД к текущему проекту, реализовать регистрацию/авторизацию, профиль, кошелёк, продукты с зависимостью от рейтинга, транзакции и админку. Соблюдать текущую архитектуру: доменная логика в `apps/server/src`, UI без бизнес-логики, переиспользуемое в `packages/*`.
 - **Окружение**: монорепозиторий npm workspaces. Приложение будет работать как WebView (iOS/Android) по https.
 
 ### Принятые решения
@@ -91,24 +92,16 @@
 - **Транзакции**: из админки можно создавать «настоящие» переводы — они отображаются как обычные у пользователя. Также поддерживаем stub-операции (на будущее — внешние провайдеры).
 - **Категории транзакций**: временно фиксированный список (например: transfer, topup, taxi, food, education, transport, shopping, entertainment, other). Дальше — маппинг банковских кодов → категорий.
 - **Документация API**: OpenAPI 3.1, генерация из `zod`-схем (`zod-to-openapi`), Swagger UI на `/docs` (опционально Redoc).
- - **Суммы**: везде используем минорные единицы с валютой (`amountMinor: number`, `currency`, по умолчанию `RUB`).
- - **Админские транзакции (дефолты сервера)**: при создании сервер устанавливает `status=posted`, `postedAt=now`; если `currency` не указана — используется `RUB`.
- - **Enum-ы**: используем строгие перечисления на уровне Prisma/схем для `Transaction.direction (debit|credit)`, `Transaction.status (posted|pending|failed|canceled)`, `Transaction.category (transfer|topup|taxi|food|education|transport|shopping|entertainment|other)`, `Transaction.source (internal|admin|stub)`, а также для `Product.category (saving|credit)`.
- - **`allowedRatings` пояснение**: массив целых значений от 1 до 5, определяющий уровни рейтинга, при которых продукт доступен. На эндпоинте `GET /products` сервер вычисляет `isEnabled = allowedRatings.includes(user.ratingLevel)`. Рекомендуем не допускать `NULL` и хранить непустой массив (для неограниченного доступа — `[1,2,3,4,5]`).
- - **Индексы и уникальность**: добавляем составной уникальный индекс `UserProducts(userId, productId)` для предотвращения повторного открытия одного и того же продукта, а также индекс `Transaction(userId, createdAt)` для быстрой пагинации ленты. При необходимости — индекс `UserProducts(userId, status)` для выборки активных продуктов.
- - **Удаление/ссылочная целостность**: поддерживаем каскадное удаление там, где это необходимо по бизнес-требованию:
+-  **Суммы**: везде используем минорные единицы с валютой (`amountMinor: number`, `currency`, по умолчанию `RUB`).
+-  **Админские транзакции (дефолты сервера)**: при создании сервер устанавливает `status=posted`, `postedAt=now`; если `currency` не указана — используется `RUB`.
+-  **Enum-ы**: используем строгие перечисления на уровне Prisma/схем для `Transaction.direction (debit|credit)`, `Transaction.status (posted|pending|failed|canceled)`, `Transaction.category (transfer|topup|taxi|food|education|transport|shopping|entertainment|other)`, `Transaction.source (internal|admin|stub)`, а также для `Product.category (saving|credit)`.
+-  **`allowedRatings` пояснение**: массив целых значений от 1 до 5, определяющий уровни рейтинга, при которых продукт доступен. На эндпоинте `GET /products` сервер вычисляет `isEnabled = allowedRatings.includes(user.ratingLevel)`. Рекомендуем не допускать `NULL` и хранить непустой массив (для неограниченного доступа — `[1,2,3,4,5]`).
+-  **Индексы и уникальность**: добавляем составной уникальный индекс `UserProducts(userId, productId)` для предотвращения повторного открытия одного и того же продукта, а также индекс `Transaction(userId, createdAt)` для быстрой пагинации ленты. При необходимости — индекс `UserProducts(userId, status)` для выборки активных продуктов.
+-  **Удаление/ссылочная целостность**: поддерживаем каскадное удаление там, где это необходимо по бизнес-требованию:
    - При удалении `User` каскадно удаляются связанные `Wallet`, `UserProducts`, `Transaction`.
    - При удалении `Product` каскадно удаляются связанные `UserProducts`.
    - Для сущностей, где удаление нежелательно, используем флаг `isActive` (мягкое выключение) вместо физического удаления.
- - **Валюта**: на текущем этапе поддерживаем только `RUB`.
-
-### Доменные сущности (ядро `@core`)
-
-- **User**: `id`, `email`, `passwordHash`, `lastName`, `firstName`, `middleName?`, `ratingLevel: 1|2|3|4|5` (начально 3 — «средний»), `isAdmin`, `createdAt`, `updatedAt`.
-- **Wallet**: `id`, `userId`, `balance` (копейки/число — уточнить формат хранения; по умолчанию целые в минорных единицах).
-- **Transaction**: `id`, `userId`, `direction: debit|credit (enum)`, `amountMinor: number`, `currency: 'RUB'`, `category (enum)`, `counterpartyName?`, `source: internal|admin|stub (enum)`, `status: posted|pending|failed|canceled (enum)`, `createdAt`, `postedAt`, `updatedAt`, `metadata?`, `transferGroupId?`, `idempotencyKey?`.
-- **Product**: `id`, `code` (например, `SAVINGS`), `title`, `subtitle`, `icon`, `iconColor`, `iconBg`, `category: saving|credit (enum)`, `allowedRatings: number[]` (значения от 1 до 5; см. пояснение выше), `isActive`.
-- **UserProducts**: `id`, `userId`, `productId`, `status: active|closed`, `openedAt`, `initialDeposit`.
+-  **Валюта**: на текущем этапе поддерживаем только `RUB`.
 
 ### Основные пользовательские потоки
 
@@ -170,9 +163,8 @@
     - Проверка: контейнер Postgres запущен; миграции/сиды проходят; сервер поднимается; `/health` → 200; `/docs` открывается (плейсхолдер Swagger). — сделано
 
 1) Инфраструктура
-   - Настроить PostgreSQL, Prisma (`schema.prisma`, `.env`). — перенесено в шаг 0 (готово)
-   - Скелет `apps/server`: Express, CORS, cookies, JSON, helmet, rate-limit, error middleware, health-check. — сделано (dotenv, trust proxy, CORS whitelist с credentials, cookie-parser, prod-only rate-limit, 404 + error-handler, `/health`)
-   - Пакеты `@core` (сущности, интерфейсы репозиториев, use-cases, DI `tsyringe`) и `@api` (DTO, клиенты, типы). — сделано (`@core`: DI на tsyringe без декораторов; `@api`: каркас + HttpClient с credentials)
+   - Скелет `apps/server`: Express, CORS, cookies, JSON, helmet, rate-limit, error middleware, health-check. — сделано
+   - Пакеты `@packages/config` и `@packages/security` подключены. — сделано
 
 2) Модели и миграции (Prisma)
    - Описать модели: `User`, `Wallet`, `Transaction`, `Product`, `UserProducts`. — сделано
@@ -182,9 +174,8 @@
    - Миграции и сиды: полный набор продуктов из текущей верстки, `allowedRatings`, админ-пользователь, тест-пользователь, кошельки, несколько транзакций. — сделано
 
 3) Аутентификация (JWT)
-   - Use-cases: `RegisterUser`, `LoginUser`, `RefreshToken`, `LogoutUser`.
-   - Реализации портов: UserRepository, PasswordHasher (argon2/bcrypt), TokenService.
-   - Эндпоинты `/auth/*`, middleware для защиты, роль admin для `/admin/*`.
+   - Use-cases: `registerUser`, `loginUser`, `refreshTokenUseCase`, `logoutUser` — локально в домене `auth`.
+   - Эндпоинты `/auth/*`, guards для админки позже.
 
 4) VPS-развертывание (single-node)
    - Провайдер: VPS (Hetzner/DigitalOcean/AWS), ОС: Ubuntu 22.04 LTS.

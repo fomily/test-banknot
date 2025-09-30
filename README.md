@@ -47,3 +47,29 @@ Dev-аккаунты (только локально):
 - Демо деплой клиента: по тегам `demo-*` (см. `.cursor/rules/deployment.mdc`).
 
 
+### Environment variables (root .env)
+
+Используйте единый корневой `.env` со следующими переменными:
+
+```
+NODE_ENV=development
+PORT=4000
+
+# Auth tokens
+JWT_SECRET=change_me_dev_secret
+ACCESS_TOKEN_TTL=15m
+REFRESH_TOKEN_TTL=7d
+
+# Cookies
+COOKIE_NAME_REFRESH=refreshToken
+COOKIE_PATH_REFRESH=/auth/refresh
+COOKIE_DOMAIN=localhost
+COOKIE_SECURE=false
+COOKIE_SAMESITE=lax
+
+# CORS
+CORS_ORIGINS=http://localhost:5173,http://localhost:5174
+DISABLE_CORS=
+```
+
+

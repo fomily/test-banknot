@@ -7,11 +7,7 @@
     "baseUrl": "../../",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": false,
-    "typeRoots": ["../../node_modules/@types", "../../packages/core/dist"],
-    "paths": {
-      "@core/*": ["packages/core/dist/*"],
-      "@api/*": ["packages/api/dist/*"]
-    }
+    "typeRoots": ["../../node_modules/@types"]
   },
   "include": ["src"]
 }
