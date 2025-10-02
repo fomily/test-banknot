@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser'
 import rateLimit from 'express-rate-limit'
 import { buildCorsOptions, loadEnv } from '@packages/config'
 import { authRouter } from './auth'
+import { usersRouter } from './users'
 
 export const createApp = () => {
   const env = loadEnv()
@@ -36,6 +37,7 @@ export const createApp = () => {
   })
 
   app.use('/auth', authRouter)
+  app.use('/users', usersRouter)
 
   // 404 and error handlers are expected to be registered by caller after routes
 

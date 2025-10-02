@@ -73,12 +73,12 @@ const ProfileButton: React.FC<{
   avatarAlt?: string;
 }> = React.memo(({ item, avatarSrc, avatarAlt }) => {
   const textColor = item.isActive ? 'white' : 'grey';
-  const { icon, ...itemProps } = item;
+  const { icon, isActive, className, ...itemProps } = item;
 
   return (
     <button
       {...itemProps}
-      className={`${styles.menuItem} ${item.isActive ? styles.active : ''} ${itemProps.className || ''}`}
+      className={`${styles.menuItem} ${isActive ? styles.active : ''} ${className || ''}`}
     >
       <Avatar
         src={avatarSrc}

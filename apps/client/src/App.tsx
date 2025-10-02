@@ -18,6 +18,9 @@ function App() {
   const [bootChecked, setBootChecked] = useState<boolean>(false);
   const [userEmail, setUserEmail] = useState<string | undefined>(undefined);
   const [userDisplayName, setUserDisplayName] = useState<string | undefined>(undefined);
+  const [userRatingLevel, setUserRatingLevel] = useState<number>(3);
+  const [userBalance, setUserBalance] = useState<number>(0);
+  const [userAvatarUrl, setUserAvatarUrl] = useState<string | undefined>(undefined);
 
   const handleNavigate = React.useCallback((screen: string) => {
     if (screen === 'back') {
@@ -84,10 +87,21 @@ function App() {
             const me = (await apiClient.request(
               '/users/me',
               { method: 'GET' }
-            )) as { email: string; firstName?: string; lastName?: string; middleName?: string };
+            )) as {
+              email: string;
+              firstName?: string;
+              lastName?: string;
+              middleName?: string;
+              avatarUrl?: string;
+              ratingLevel?: number;
+              wallet?: { balance: number };
+            };
             setUserEmail(me.email);
             const name = [me.lastName, me.firstName, me.middleName].filter(Boolean).join(' ');
             setUserDisplayName(name || undefined);
+            setUserRatingLevel(me.ratingLevel || 3);
+            setUserBalance(me.wallet?.balance || 0);
+            setUserAvatarUrl(me.avatarUrl);
           } catch (_) {}
           setIsAuthed(true);
         }
@@ -99,10 +113,27 @@ function App() {
     })();
   }, []);
 
+  const handleLogout = React.useCallback(async () => {
+    try {
+      await fetch('/auth/logout', { method: 'POST', credentials: 'include' });
+    } catch (_) {}
+    apiClient.clearAccessToken();
+    localStorage.removeItem('hasRefresh');
+    setIsAuthed(false);
+    setUserEmail(undefined);
+    setUserDisplayName(undefined);
+    setUserRatingLevel(3);
+    setUserBalance(0);
+    setUserAvatarUrl(undefined);
+    // Сбрасываем на главный экран при выходе
+    setCurrentScreen('main');
+    historyRef.current = ['main'];
+  }, []);
+
   const renderScreen = () => {
     switch (currentScreen) {
       case 'main':
-        return <Main onNavigate={handleNavigate} />;
+        return <Main onNavigate={handleNavigate} balance={userBalance} ratingLevel={userRatingLevel} />;
       case 'products':
         return <Products onNavigate={handleNavigate} />;
       case 'rating':
@@ -113,6 +144,9 @@ function App() {
             onNavigate={handleNavigate}
             displayName={userDisplayName}
             email={userEmail}
+            ratingLevel={userRatingLevel}
+            avatarUrl={userAvatarUrl}
+            onLogout={handleLogout}
           />
         );
       case 'wallet':
@@ -122,13 +156,44 @@ function App() {
     }
   };
 
+  // Загрузить данные пользователя после авторизации
+  useEffect(() => {
+    if (!isAuthed) return;
+    (async () => {
+      try {
+        const me = (await apiClient.request(
+          '/users/me',
+          { method: 'GET' }
+        )) as {
+          email: string;
+          firstName?: string;
+          lastName?: string;
+          middleName?: string;
+          avatarUrl?: string;
+          ratingLevel?: number;
+          wallet?: { balance: number };
+        };
+        setUserEmail(me.email);
+        const name = [me.lastName, me.firstName, me.middleName].filter(Boolean).join(' ');
+        setUserDisplayName(name || undefined);
+        setUserRatingLevel(me.ratingLevel || 3);
+        setUserBalance(me.wallet?.balance || 0);
+        setUserAvatarUrl(me.avatarUrl);
+      } catch (_) {}
+    })();
+  }, [isAuthed]);
+
   if (!bootChecked) return null;
   if (!isAuthed) {
     return <AuthScreen onAuthenticated={() => setIsAuthed(true)} />;
   }
 
   return (
-    <Layout currentScreen={currentScreen} onNavigate={handleNavigate}>
+    <Layout
+      currentScreen={currentScreen}
+      onNavigate={handleNavigate}
+      userAvatarUrl={userAvatarUrl}
+    >
       {renderScreen()}
     </Layout>
   );

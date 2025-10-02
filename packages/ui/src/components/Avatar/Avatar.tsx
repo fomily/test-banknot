@@ -28,20 +28,15 @@ export const Avatar: React.FC<AvatarProps> = ({
           }}
         />
       ) : (
-        // Заглушка при отсутствии изображения
+        // Заглушка при отсутствии изображения - иконка профиля в стиле проекта
         <svg
           className={styles.avatarPlaceholder}
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <circle cx="12" cy="8" r="4" fill="#9E9E9E"/>
-          <path
-            d="M20 21C20 16.5817 16.4183 13 12 13C7.58172 13 4 16.5817 4 21"
-            stroke="#9E9E9E"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
+          <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="2"/>
+          <path d="M6 21C6 17 8.5 14 12 14C15.5 14 18 17 18 21" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
         </svg>
       )}
     </div>

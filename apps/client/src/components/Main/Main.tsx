@@ -10,9 +10,33 @@ import styles from './Main.module.css';
 
 interface MainProps {
   onNavigate: (screen: string) => void;
+  balance?: number;
+  ratingLevel?: number;
 }
 
-export const Main: React.FC<MainProps> = ({ onNavigate }) => {
+export const Main: React.FC<MainProps> = ({ onNavigate, balance = 0, ratingLevel = 3 }) => {
+  // Форматирование баланса (копейки в рубли)
+  const formattedBalance = React.useMemo(() => {
+    if (balance === 0) return '0';
+    const rubles = Math.floor(balance / 100);
+    const kopecks = balance % 100;
+    return `${rubles.toLocaleString('ru-RU')},${kopecks.toString().padStart(2, '0')}`;
+  }, [balance]);
+
+  // Маппинг уровня рейтинга на текст
+  const getRatingText = (level: number) => {
+    switch (level) {
+      case 1: return 'очень низкий';
+      case 2: return 'низкий';
+      case 3: return 'хороший';
+      case 4: return 'отличный';
+      case 5: return 'превосходный';
+      default: return 'хороший';
+    }
+  };
+
+  const ratingText = React.useMemo(() => getRatingText(ratingLevel), [ratingLevel]);
+
   // Данные для секции "Избранное" - мемоизируем чтобы не пересоздавать
   const favoriteContacts = React.useMemo(() => [
     { name: 'Вероника', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&fit=crop&crop=entropy&q=80' },
@@ -56,7 +80,7 @@ export const Main: React.FC<MainProps> = ({ onNavigate }) => {
             рейтинг:
           </Text>
           <Badge backgroundColor="var(--color-green-primary)" textColor="var(--color-black)">
-            хороший
+            {ratingText}
           </Badge>
         </div>
 
@@ -64,7 +88,7 @@ export const Main: React.FC<MainProps> = ({ onNavigate }) => {
         <div className={styles.ratingPlaceholder} />
 
         <div className={styles.balanceSection} onClick={() => onNavigate('wallet')}>
-          <Text variant="currency" color="white" currencyValue="60 000,34">
+          <Text variant="currency" color="white" currencyValue={formattedBalance}>
           </Text>
         </div>
 

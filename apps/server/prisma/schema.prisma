@@ -49,6 +49,7 @@ model User {
   firstName    String
   lastName     String
   middleName   String?
+  avatarUrl    String?
   ratingLevel  Int      @default(3)
   isAdmin      Boolean  @default(false)
   createdAt    DateTime @default(now())

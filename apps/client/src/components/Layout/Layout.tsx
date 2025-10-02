@@ -6,12 +6,14 @@ interface LayoutProps {
   children: React.ReactNode;
   currentScreen: string;
   onNavigate: (screen: string) => void;
+  userAvatarUrl?: string;
 }
 
 export const Layout: React.FC<LayoutProps> = ({
   children,
   currentScreen,
-  onNavigate
+  onNavigate,
+  userAvatarUrl
 }) => {
   // Общие данные для меню - мемоизируем для стабильности
   const menuItems: MenuItemProps[] = React.useMemo(() => [
@@ -51,7 +53,7 @@ export const Layout: React.FC<LayoutProps> = ({
       {/* Общее меню */}
       <Menu
         items={menuItems}
-        avatarSrc="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=64&h=64&fit=crop&crop=entropy&q=80"
+        avatarSrc={userAvatarUrl}
         avatarAlt="Профиль"
       />
     </div>

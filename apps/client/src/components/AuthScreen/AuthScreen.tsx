@@ -37,13 +37,6 @@ export const AuthScreen: React.FC<Props> = ({ onAuthenticated }) => {
       })
       apiClient.setAccessToken(loginRes.accessToken)
       localStorage.setItem('hasRefresh', '1')
-      try {
-        const me = await apiClient.request<{ email: string; firstName?: string; lastName?: string; middleName?: string }>(
-          '/users/me',
-          { method: 'GET' }
-        )
-        // можно положить в local state через контекст в дальнейшем
-      } catch (_) {}
       onAuthenticated()
       return
     } catch (e) {
@@ -55,13 +48,6 @@ export const AuthScreen: React.FC<Props> = ({ onAuthenticated }) => {
         })
         apiClient.setAccessToken(regRes.accessToken)
         localStorage.setItem('hasRefresh', '1')
-        try {
-          const me = await apiClient.request<{ email: string; firstName?: string; lastName?: string; middleName?: string }>(
-            '/users/me',
-            { method: 'GET' }
-          )
-          // можно положить в local state через контекст в дальнейшем
-        } catch (_) {}
         onAuthenticated()
         return
       } catch (err) {

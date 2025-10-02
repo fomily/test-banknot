@@ -12,16 +12,37 @@ interface ProfileScreenProps {
   displayName?: string;
   email?: string;
   avatarUrl?: string;
+  ratingLevel?: number;
+  onLogout?: () => void;
 }
 
-export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigate, displayName, email, avatarUrl }) => {
+export const ProfileScreen: React.FC<ProfileScreenProps> = ({
+  onNavigate,
+  displayName,
+  email,
+  avatarUrl,
+  ratingLevel = 3,
+  onLogout
+}) => {
+  // Маппинг уровня рейтинга на текст
+  const getRatingText = (level: number) => {
+    switch (level) {
+      case 1: return 'очень низкий';
+      case 2: return 'низкий';
+      case 3: return 'хороший';
+      case 4: return 'отличный';
+      case 5: return 'превосходный';
+      default: return 'хороший';
+    }
+  };
+
   // Данные пользователя - мемоизируем
   const userData = React.useMemo(() => ({
     name: displayName || email || 'Пользователь',
     avatar: avatarUrl as string | undefined,
-    rating: 'хороший',
+    rating: getRatingText(ratingLevel),
     ratingColor: 'var(--color-green-primary)'
-  }), [displayName, email, avatarUrl]);
+  }), [displayName, email, avatarUrl, ratingLevel]);
 
   // Список действий профиля - мемоизируем
   const profileActions = React.useMemo(() => [
@@ -54,8 +75,14 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigate, displa
       subtitle: 'Онлайн поддержка и консультации',
       icon: 'chat' as const,
       onClick: () => console.log('Чат с банком')
+    },
+    {
+      title: 'Выйти',
+      subtitle: 'Завершить текущий сеанс',
+      icon: 'logout' as const,
+      onClick: () => onLogout?.()
     }
-  ], []);
+  ], [onLogout]);
 
   return (
     <div className={styles.profileScreen}>
