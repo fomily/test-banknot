@@ -1,5 +1,5 @@
 ---
-alwaysApply: true
+applyContext: backend
 ---
 
 # 🏗️ Backend: Домены и архитектура
@@ -374,4 +374,3 @@ async function registerUser(params: RegisterParams): Promise<UserWithWallet> {
 ---
 
 **Следуй этим правилам для консистентной backend архитектуры!**
-

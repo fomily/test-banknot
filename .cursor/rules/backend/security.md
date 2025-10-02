@@ -1,5 +1,5 @@
 ---
-alwaysApply: true
+applyContext: backend
 ---
 
 # 🔒 Backend: Security и аутентификация
@@ -438,4 +438,3 @@ authRouter.post('/login', async (req, res, next) => {
 ---
 
 **Следуй этим правилам для безопасного backend!**
-

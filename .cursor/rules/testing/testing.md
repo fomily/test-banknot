@@ -1,5 +1,5 @@
 ---
-alwaysApply: true
+applyContext: testing
 ---
 
 # 🧪 Testing Guidelines
@@ -512,4 +512,3 @@ npm run test:coverage
 ---
 
 **Следуй этим правилам для качественного тестирования!**
-
