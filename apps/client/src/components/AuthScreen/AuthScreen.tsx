@@ -13,6 +13,10 @@ export const AuthScreen: React.FC<Props> = ({ onAuthenticated }) => {
   const [error, setError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+  const handleBack = () => {
+    window.location.hash = '';
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
@@ -60,19 +64,22 @@ export const AuthScreen: React.FC<Props> = ({ onAuthenticated }) => {
 
   return (
     <div className={styles.root}>
-      <Text className={styles.title} variant="h3">Войти или зарегистрироваться</Text>
+      <button className={styles.backButton} onClick={handleBack}>
+        <Text variant="regularM">← Назад</Text>
+      </button>
+      <Text className={styles.title} variant="headingM">Войти или зарегистрироваться</Text>
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.field}>
-          <Text variant="caption">Email</Text>
+          <Text variant="regularM">Email</Text>
           <input className={styles.input} type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" />
         </div>
         <div className={styles.field}>
-          <Text variant="caption">Пароль</Text>
+          <Text variant="regularM">Пароль</Text>
           <input className={styles.input} type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••" />
         </div>
-        {error && <Text className={styles.error} variant="caption">{error}</Text>}
+        {error && <Text className={styles.error} variant="regularS">{error}</Text>}
         <button className={styles.button} type="submit" disabled={isSubmitting}>{isSubmitting ? 'Подождите…' : 'Войти'}</button>
-        <Text className={styles.hint} variant="caption">Если email не найден — мы создадим новый аккаунт автоматически</Text>
+        <Text className={styles.hint} variant="regularS">Если email не найден — мы создадим новый аккаунт автоматически</Text>
       </form>
     </div>
   )

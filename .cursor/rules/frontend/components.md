@@ -6,6 +6,10 @@ applyContext: frontend
 
 Этот файл описывает правила работы с UI компонентами из `@packages/ui`, их переиспользование и создание новых.
 
+**ВАЖНО:** Все компоненты должны быть адаптивными и работать на:
+- ✅ **Desktop** (текущая веб-версия)
+- ✅ **Mobile WebView** (будущие iOS/Android приложения)
+
 ## Использование существующих компонентов
 
 **КРИТИЧЕСКИ ВАЖНО:** ВСЕГДА используй существующие компоненты из `@packages/ui`!
@@ -432,6 +436,60 @@ export const Card = ({ id }) => {
 }
 ```
 
+## Desktop и Mobile совместимость
+
+### Компоненты должны работать на ВСЕХ платформах!
+
+**КРИТИЧЕСКИ ВАЖНО:** Поддерживай и desktop (hover), и mobile (touch) взаимодействие.
+
+### Интерактивные компоненты:
+
+```tsx
+// Button.tsx
+import styles from './Button.module.css'
+
+export const Button = ({ children, onClick }) => (
+  <button className={styles.button} onClick={onClick}>
+    {children}
+  </button>
+)
+```
+
+```css
+/* Button.module.css */
+.button {
+  /* Touch-friendly для mobile */
+  min-height: 44px;
+  padding: 0.75rem 1.5rem;
+
+  /* Desktop cursor */
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+/* Desktop hover - ТОЛЬКО с media query! */
+@media (hover: hover) and (pointer: fine) {
+  .button:hover {
+    opacity: 0.9;
+  }
+}
+
+/* Mobile/Touch active state */
+.button:active {
+  opacity: 0.7;
+  transform: scale(0.98);
+}
+```
+
+### Правила для интерактивности:
+
+1. ✅ **Используй @media (hover: hover)** для desktop hover
+2. ✅ **Используй :active** для touch feedback
+3. ✅ **Минимум 44x44px** для кликабельных элементов
+4. ✅ **cursor: pointer** безопасен (игнорируется на mobile)
+5. ❌ **НЕ используй :hover без media query**
+6. ❌ **НЕ делай hover обязательным** для доступа к функциям
+
 ## State Management
 
 ### Компоненты НЕ должны содержать состояние приложения!
@@ -542,3 +600,4 @@ export type { ProductCardProps } from './ProductCard'
 ---
 
 **Следуй этим правилам для консистентных и переиспользуемых компонентов!**
+

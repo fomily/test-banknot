@@ -567,3 +567,4 @@ type UserWithWallet = User & { wallet: Wallet }
 ---
 
 **Следуй этим правилам для консистентного API!**
+

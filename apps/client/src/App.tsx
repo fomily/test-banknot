@@ -6,6 +6,7 @@ import { ProfileScreen } from './components/ProfileScreen';
 import { Layout } from './components/Layout';
 import { WalletScreen } from './components/WalletScreen';
 import { AuthScreen } from './components/AuthScreen';
+import { LandingScreen } from './components/LandingScreen';
 import '@packages/ui/styles';
 import { apiClient } from '@api/client';
 
@@ -16,6 +17,7 @@ function App() {
   const historyRef = useRef<Screen[]>(['main']);
   const [isAuthed, setIsAuthed] = useState<boolean>(false);
   const [bootChecked, setBootChecked] = useState<boolean>(false);
+  const [currentRoute, setCurrentRoute] = useState<string>(window.location.hash || '');
   const [userEmail, setUserEmail] = useState<string | undefined>(undefined);
   const [userDisplayName, setUserDisplayName] = useState<string | undefined>(undefined);
   const [userRatingLevel, setUserRatingLevel] = useState<number>(3);
@@ -46,6 +48,16 @@ function App() {
     }
   }, []);
 
+  // Слушаем изменения hash для роутинга
+  useEffect(() => {
+    const handleHashChange = () => {
+      setCurrentRoute(window.location.hash);
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
   // Сброс скролла при изменении экрана
   useEffect(() => {
     // Более надежный способ для WebView
@@ -69,7 +81,7 @@ function App() {
     const timeoutId = setTimeout(scrollToTop, 0);
 
     return () => clearTimeout(timeoutId);
-  }, [currentScreen]);
+  }, [currentScreen, currentRoute]);
 
   useEffect(() => {
     // Try silent refresh on boot to restore session
@@ -128,6 +140,8 @@ function App() {
     // Сбрасываем на главный экран при выходе
     setCurrentScreen('main');
     historyRef.current = ['main'];
+    // Возвращаемся на landing после logout
+    window.location.hash = '';
   }, []);
 
   const renderScreen = () => {
@@ -184,8 +198,21 @@ function App() {
   }, [isAuthed]);
 
   if (!bootChecked) return null;
+
   if (!isAuthed) {
-    return <AuthScreen onAuthenticated={() => setIsAuthed(true)} />;
+    // Показываем AuthScreen если URL = #/auth
+    if (currentRoute === '#/auth') {
+      return (
+        <AuthScreen
+          onAuthenticated={() => {
+            setIsAuthed(true);
+            window.location.hash = '';
+          }}
+        />
+      );
+    }
+    // Иначе показываем LandingScreen
+    return <LandingScreen />;
   }
 
   return (

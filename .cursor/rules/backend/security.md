@@ -438,3 +438,4 @@ authRouter.post('/login', async (req, res, next) => {
 ---
 
 **Следуй этим правилам для безопасного backend!**
+

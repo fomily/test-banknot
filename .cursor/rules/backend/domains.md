@@ -374,3 +374,4 @@ async function registerUser(params: RegisterParams): Promise<UserWithWallet> {
 ---
 
 **Следуй этим правилам для консистентной backend архитектуры!**
+
